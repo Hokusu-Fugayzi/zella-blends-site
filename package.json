@@ -1,0 +1,12 @@
+{
+  "name": "zella-blends-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "square": "^44.0.1"
+  }
+}
