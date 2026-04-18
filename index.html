@@ -572,6 +572,357 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+    /* ========== BESPOKE SECTION ========== */
+    .bespoke {
+      background: var(--deep-black);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .bespoke::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(176,141,123,0.14), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(123,94,80,0.16), transparent 60%);
+      pointer-events: none;
+    }
+    .bespoke-inner { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; }
+    .bespoke .section-eyebrow { color: var(--muted-gold); }
+    .bespoke h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4.8vw, 3.6rem); font-weight: 300;
+      line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: 0.01em;
+    }
+    .bespoke h2 em { font-style: italic; color: var(--muted-gold); }
+    .bespoke p.lede {
+      color: rgba(245,240,232,0.65); line-height: 1.9;
+      font-size: 1rem; max-width: 600px; margin: 0 auto 2.5rem;
+    }
+    .bespoke-orb {
+      width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 2.5rem;
+      border: 1px solid rgba(176,141,123,0.4);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(245,237,230,0.12), transparent 55%),
+        radial-gradient(circle at 65% 70%, rgba(176,141,123,0.25), transparent 60%),
+        linear-gradient(135deg, rgba(26,20,16,0.4), rgba(35,28,23,0.9));
+      position: relative; animation: orbBreathe 6s ease-in-out infinite;
+    }
+    .bespoke-orb::before {
+      content: ''; position: absolute; inset: -8px; border-radius: 50%;
+      border: 1px solid rgba(176,141,123,0.15);
+    }
+    .bespoke-orb::after {
+      content: '✧'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; color: rgba(212,169,152,0.7);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    @keyframes orbBreathe {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 60px rgba(176,141,123,0.1); }
+      50% { transform: scale(1.04); box-shadow: 0 0 90px rgba(176,141,123,0.25); }
+    }
+    .bespoke-cta {
+      display: inline-block; border: 1px solid var(--muted-gold);
+      color: var(--cream); padding: 1.1rem 3rem; font-family: 'Questrial', sans-serif;
+      background: transparent; font-size: 0.8rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      transition: all 0.4s ease; cursor: pointer;
+    }
+    .bespoke-cta:hover { background: var(--muted-gold); color: var(--black); }
+    .bespoke-meta {
+      margin-top: 2rem; font-size: 0.75rem;
+      color: rgba(245,240,232,0.4); letter-spacing: 0.2em; text-transform: uppercase;
+    }
+
+    /* ========== WIZARD MODAL ========== */
+    .wizard-overlay {
+      position: fixed; inset: 0; z-index: 600;
+      background: rgba(18,13,10,0.96);
+      backdrop-filter: blur(14px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.5s ease;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+    }
+    .wizard-overlay.active { opacity: 1; pointer-events: all; }
+    .wizard {
+      width: 100%; max-width: 680px;
+      background: linear-gradient(160deg, rgba(35,28,23,0.85), rgba(26,20,16,0.95));
+      border: 1px solid rgba(176,141,123,0.2);
+      padding: 3rem 2.5rem 2.5rem;
+      position: relative;
+      transform: translateY(20px); opacity: 0;
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+      min-height: 540px;
+      display: flex; flex-direction: column;
+    }
+    .wizard-overlay.active .wizard { opacity: 1; transform: translateY(0); }
+    .wizard-close {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      background: none; border: none; color: var(--cream);
+      font-size: 1.3rem; cursor: pointer; opacity: 0.5;
+      transition: opacity 0.3s; line-height: 1; padding: 0.3rem;
+    }
+    .wizard-close:hover { opacity: 1; }
+    .wizard-progress {
+      display: flex; gap: 6px; justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .wizard-dot {
+      width: 24px; height: 2px;
+      background: rgba(176,141,123,0.2);
+      transition: background 0.4s ease;
+    }
+    .wizard-dot.done { background: rgba(176,141,123,0.5); }
+    .wizard-dot.active { background: var(--muted-gold); }
+
+    .wizard-step { display: none; flex-direction: column; flex: 1; }
+    .wizard-step.active { display: flex; animation: stepIn 0.45s ease; }
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wizard-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--muted-gold); margin-bottom: 1rem; text-align: center;
+    }
+    .wizard-question {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300;
+      line-height: 1.25; text-align: center;
+      color: var(--cream); margin-bottom: 0.8rem;
+    }
+    .wizard-question em { font-style: italic; color: var(--muted-gold); }
+    .wizard-helper {
+      font-size: 0.85rem; color: rgba(245,240,232,0.5);
+      text-align: center; line-height: 1.7;
+      max-width: 480px; margin: 0 auto 2rem;
+    }
+
+    .wizard-input, .wizard-textarea {
+      width: 100%;
+      background: rgba(26,20,16,0.6);
+      border: 1px solid rgba(176,141,123,0.2);
+      color: var(--cream);
+      padding: 1rem 1.2rem;
+      font-family: 'Questrial', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease;
+      outline: none;
+    }
+    .wizard-input:focus, .wizard-textarea:focus { border-color: var(--muted-gold); }
+    .wizard-textarea { min-height: 110px; resize: vertical; line-height: 1.6; }
+    .wizard-field + .wizard-field { margin-top: 1rem; }
+    .wizard-label {
+      display: block; font-size: 0.7rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(245,240,232,0.5); margin-bottom: 0.5rem;
+    }
+
+    .wizard-options {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem;
+    }
+    .wizard-option {
+      background: rgba(26,20,16,0.5);
+      border: 1px solid rgba(176,141,123,0.18);
+      padding: 1.1rem 1.2rem;
+      color: var(--cream);
+      font-family: 'Questrial', sans-serif;
+      font-size: 0.9rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      line-height: 1.45;
+    }
+    .wizard-option:hover {
+      border-color: rgba(176,141,123,0.5);
+      background: rgba(35,28,23,0.7);
+    }
+    .wizard-option.selected {
+      border-color: var(--muted-gold);
+      background: rgba(176,141,123,0.12);
+    }
+    .wizard-option-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; display: block; margin-bottom: 0.2rem;
+    }
+    .wizard-option-desc {
+      font-size: 0.78rem; color: rgba(245,240,232,0.5); line-height: 1.5;
+    }
+
+    .wizard-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+    .wizard-chip {
+      background: rgba(26,20,16,0.5);
+      border: 1px solid rgba(176,141,123,0.2);
+      color: var(--cream);
+      padding: 0.55rem 1.1rem;
+      font-family: 'Questrial', sans-serif;
+      font-size: 0.82rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .wizard-chip:hover { border-color: rgba(176,141,123,0.5); }
+    .wizard-chip.selected {
+      background: var(--muted-gold);
+      color: var(--black);
+      border-color: var(--muted-gold);
+    }
+    .wizard-chip-hint {
+      text-align: center; font-size: 0.72rem;
+      color: rgba(245,240,232,0.35);
+      margin-top: 1rem; letter-spacing: 0.1em;
+    }
+
+    .wizard-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: auto; padding-top: 2rem;
+    }
+    .wizard-back, .wizard-next {
+      font-family: 'Questrial', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s ease;
+      background: none;
+    }
+    .wizard-back {
+      border: none; color: rgba(245,240,232,0.5); padding: 0.5rem 0.2rem;
+    }
+    .wizard-back:hover { color: var(--cream); }
+    .wizard-back:disabled { visibility: hidden; }
+    .wizard-next {
+      border: 1px solid var(--muted-gold); color: var(--cream);
+      padding: 0.9rem 2.2rem;
+    }
+    .wizard-next:hover:not(:disabled) { background: var(--muted-gold); color: var(--black); }
+    .wizard-next:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* Divining loader */
+    .wizard-divining {
+      text-align: center; padding: 3rem 1rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    }
+    .divining-orb {
+      width: 90px; height: 90px; border-radius: 50%;
+      border: 1px solid rgba(176,141,123,0.35);
+      background: radial-gradient(circle, rgba(176,141,123,0.3), transparent 70%);
+      animation: diviningPulse 1.8s ease-in-out infinite;
+      position: relative;
+    }
+    .divining-orb::after {
+      content: ''; position: absolute; inset: -10px; border-radius: 50%;
+      border: 1px solid rgba(176,141,123,0.15);
+      animation: diviningRing 2.4s ease-in-out infinite;
+    }
+    @keyframes diviningPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(176,141,123,0.2); }
+      50% { transform: scale(1.08); box-shadow: 0 0 70px rgba(176,141,123,0.4); }
+    }
+    @keyframes diviningRing {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.15); opacity: 0.6; }
+    }
+    .divining-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.2rem;
+      color: rgba(245,240,232,0.7);
+      letter-spacing: 0.02em;
+      min-height: 1.6em;
+    }
+
+    /* Result */
+    .wizard-result { text-align: center; }
+    .result-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--muted-gold); margin-bottom: 1rem;
+    }
+    .result-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 300; color: var(--cream);
+      margin-bottom: 0.4rem; line-height: 1.2;
+    }
+    .result-for {
+      font-size: 0.8rem; color: rgba(245,240,232,0.5);
+      letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .result-section { margin-bottom: 1.8rem; text-align: left; }
+    .result-section-label {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--muted-gold); margin-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(176,141,123,0.2);
+      padding-bottom: 0.5rem;
+    }
+    .result-ingredient {
+      padding: 0.7rem 0; border-bottom: 1px solid rgba(245,240,232,0.05);
+    }
+    .result-ingredient:last-child { border-bottom: none; }
+    .result-ingredient-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; color: var(--cream);
+      margin-bottom: 0.25rem;
+    }
+    .result-ingredient-why {
+      font-size: 0.82rem; color: rgba(245,240,232,0.55); line-height: 1.55;
+    }
+    .result-description {
+      font-size: 0.9rem; color: rgba(245,240,232,0.7);
+      line-height: 1.85; text-align: center;
+      max-width: 520px; margin: 0 auto 2rem;
+      font-style: italic; font-family: 'Cormorant Garamond', serif;
+    }
+    .result-ritual {
+      background: rgba(176,141,123,0.06);
+      border-left: 1px solid rgba(176,141,123,0.4);
+      padding: 1rem 1.2rem; margin-bottom: 2rem;
+      text-align: left;
+    }
+    .result-ritual-label {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--muted-gold); margin-bottom: 0.5rem;
+    }
+    .result-ritual-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: rgba(245,240,232,0.75);
+      font-size: 0.95rem; line-height: 1.7;
+    }
+    .result-actions { display: flex; flex-direction: column; gap: 0.8rem; }
+    .result-claim {
+      width: 100%; padding: 1.2rem;
+      background: var(--muted-gold); color: var(--black);
+      border: none; font-family: 'Questrial', sans-serif;
+      font-size: 0.82rem; letter-spacing: 0.25em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .result-claim:hover { background: var(--gold); }
+    .result-price {
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(245,240,232,0.6); font-size: 0.9rem;
+    }
+    .result-retry {
+      background: none; border: none; color: rgba(245,240,232,0.4);
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; padding: 0.5rem; font-family: 'Questrial', sans-serif;
+      transition: color 0.3s;
+    }
+    .result-retry:hover { color: var(--cream); }
+    .wizard-error {
+      background: rgba(196,101,90,0.1);
+      border: 1px solid rgba(196,101,90,0.3);
+      color: rgba(245,240,232,0.8);
+      padding: 1rem 1.2rem; margin-top: 1rem;
+      font-size: 0.85rem; line-height: 1.6; text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .wizard { padding: 2rem 1.3rem 1.8rem; min-height: 480px; }
+      .wizard-options { grid-template-columns: 1fr; }
+      .bespoke-orb { width: 140px; height: 140px; }
+    }
+
     /* ========== RESPONSIVE ========== */
     @media (max-width: 1024px) {
       .element-grid { grid-template-columns: repeat(2, 1fr); }
@@ -631,6 +982,7 @@
       <a href="#discover">Ritual</a>
       <a href="#elemental">Elemental</a>
       <a href="#signature">Signature</a>
+      <a href="#bespoke">Bespoke</a>
       <a href="#founder">Our Story</a>
       <a href="#" class="nav-shop-btn" onclick="event.preventDefault(); document.getElementById('elemental').scrollIntoView({behavior:'smooth'})">Shop Now</a>
       <button class="cart-btn" onclick="openCart()" aria-label="Open cart">
@@ -653,6 +1005,7 @@
     <a href="#discover" onclick="this.parentElement.classList.remove('active')">The Ritual</a>
     <a href="#elemental" onclick="this.parentElement.classList.remove('active')">Elemental Series</a>
     <a href="#signature" onclick="this.parentElement.classList.remove('active')">Signature Series</a>
+    <a href="#bespoke" onclick="this.parentElement.classList.remove('active')">Bespoke Blend</a>
     <a href="#founder" onclick="this.parentElement.classList.remove('active')">Our Story</a>
     <a href="#" class="btn-outline" style="margin-top: 1rem;" onclick="event.preventDefault(); this.parentElement.classList.remove('active'); openCart()">View Cart</a>
   </div>
@@ -682,6 +1035,15 @@
         </div>
         <button class="add-to-cart-btn" onclick="addToCart()">Add to Ritual</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Bespoke Wizard Modal -->
+  <div class="wizard-overlay" id="wizard-overlay" onclick="if(event.target===this)closeWizard()">
+    <div class="wizard" id="wizard">
+      <button class="wizard-close" onclick="closeWizard()" aria-label="Close">&times;</button>
+      <div class="wizard-progress" id="wizard-progress"></div>
+      <div class="wizard-body" id="wizard-body"></div>
     </div>
   </div>
 
@@ -830,6 +1192,20 @@
       </div>
     </div>
   </section>
+
+  <!-- Bespoke Blend (Wizard CTA) -->
+  <section class="bespoke" id="bespoke">
+    <div class="bespoke-inner">
+      <p class="section-eyebrow fade-in">An Offering Made for You Alone</p>
+      <div class="bespoke-orb fade-in"></div>
+      <h2 class="fade-in">A blend <em>divined</em><br>specifically for your spirit.</h2>
+      <p class="lede fade-in">Answer a handful of intimate questions -- about your intention, what you carry, what you hope to call in -- and the alchemist will compose a one-of-one blend chosen from Zella's full library of stones and sacred oils. No two are alike.</p>
+      <button class="bespoke-cta fade-in" onclick="openWizard()">Begin Your Divination</button>
+      <p class="bespoke-meta fade-in">Hand-blended &middot; Single intention &middot; Yours alone</p>
+    </div>
+  </section>
+
+  <div class="divider"><div class="line"></div><span class="moon">&#9789;</span><div class="line"></div></div>
 
   <!-- Body Oils -->
   <section class="body-oils">
@@ -989,8 +1365,17 @@
         name: 'Body + Massage Oil', series: 'Body Oils', img: 'images/body-oil.webp',
         desc: 'A luxurious, deeply nourishing body oil crafted to honor the vessel that carries you through this life. Blended with intention, infused with botanical oils that soften, restore, and awaken the skin\'s natural radiance. 2oz glass bottle.',
         sizes: [{ label: '2oz Bottle', price: 29 }]
+      },
+      bespoke: {
+        name: 'Bespoke Blend made specifically for you',
+        series: 'Bespoke',
+        img: 'images/signature-blend.webp',
+        desc: 'A one-of-one alchemical blend hand-composed for your intention. Ingredients chosen during your divination ritual.',
+        sizes: [{ label: '10ml Roller', price: 89 }]
       }
     };
+
+    const BESPOKE_PRICE = 89;
 
     // ========== CART STATE ==========
     let cart = [];
@@ -1096,17 +1481,26 @@
       if (cart.length === 0) {
         container.innerHTML = '<div class="cart-empty">Your ritual awaits...<br><br>Add sacred blends to begin.</div>';
       } else {
-        container.innerHTML = cart.map((item, i) => `
+        container.innerHTML = cart.map((item, i) => {
+          const recipeHtml = item.recipe ? `
+            <div style="font-size: 0.7rem; color: rgba(245,240,232,0.45); margin-top: 0.4rem; line-height: 1.5; font-style: italic;">
+              For ${escapeHtml(item.recipe.recipientName || 'you')} &middot; "${escapeHtml(item.recipe.blendName || '')}"<br>
+              Stones: ${item.recipe.stones.map(s => escapeHtml(s.name)).join(', ')}<br>
+              Oils: ${item.recipe.oils.map(o => escapeHtml(o.name)).join(', ')}
+            </div>` : '';
+          return `
           <div class="cart-item">
             <img class="cart-item-img" src="${item.img}" alt="${item.name}">
             <div class="cart-item-info">
               <div class="cart-item-name">${item.name}</div>
               <div class="cart-item-meta">${item.size} &middot; Qty: ${item.qty}</div>
               <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+              ${recipeHtml}
             </div>
             <button class="cart-item-remove" onclick="removeFromCart(${i})">Remove</button>
           </div>
-        `).join('');
+        `;
+        }).join('');
       }
       document.getElementById('cart-total').textContent = '$' + getCartTotal().toFixed(2);
     }
@@ -1143,6 +1537,504 @@
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function escapeHtml(s) {
+      return String(s ?? '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    // ========== BESPOKE WIZARD ==========
+    function sunSignForDate(isoDate) {
+      if (!isoDate || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return '';
+      const [, mStr, dStr] = isoDate.split('-');
+      const m = parseInt(mStr, 10), d = parseInt(dStr, 10);
+      const signs = [
+        ['Capricorn',  1, 1,  1, 19],
+        ['Aquarius',   1, 20, 2, 18],
+        ['Pisces',     2, 19, 3, 20],
+        ['Aries',      3, 21, 4, 19],
+        ['Taurus',     4, 20, 5, 20],
+        ['Gemini',     5, 21, 6, 20],
+        ['Cancer',     6, 21, 7, 22],
+        ['Leo',        7, 23, 8, 22],
+        ['Virgo',      8, 23, 9, 22],
+        ['Libra',      9, 23, 10, 22],
+        ['Scorpio',    10, 23, 11, 21],
+        ['Sagittarius',11, 22, 12, 21],
+        ['Capricorn',  12, 22, 12, 31]
+      ];
+      for (const [name, m1, d1, m2, d2] of signs) {
+        if ((m === m1 && d >= d1) || (m === m2 && d <= d2)) return name;
+      }
+      return '';
+    }
+
+
+    const wizardSteps = [
+      {
+        id: 'welcome',
+        render: () => `
+          <div class="wizard-step active">
+            <p class="wizard-eyebrow">An Invitation</p>
+            <h3 class="wizard-question">Let us divine a blend <em>made for you alone</em>.</h3>
+            <p class="wizard-helper">A handful of questions about who you are and what you're calling in. The alchemist will compose a one-of-one blend from Zella's library of stones and sacred oils.</p>
+            <div style="text-align: center; margin-top: 1.5rem;">
+              <button class="wizard-next" onclick="wizardNext()">Begin</button>
+            </div>
+          </div>`
+      },
+      {
+        id: 'birth',
+        eyebrow: 'Birth',
+        question: 'When did you <em>arrive</em>?',
+        helper: 'The cosmos was holding a particular weather the day you were born. The alchemist will listen to it.',
+        render(ctx) {
+          return `
+            <div class="wizard-field">
+              <label class="wizard-label">Birth date</label>
+              <input class="wizard-input" id="q-birthdate" type="date" oninput="wizardLiveCapture()" max="${new Date().toISOString().slice(0,10)}" value="${escapeHtml(ctx.answers.birthdate || '')}">
+              <div id="q-sign-readout" style="margin-top: 0.6rem; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted-gold); font-size: 1rem; min-height: 1.4em;">${ctx.answers.sunSign ? `Sun in ${ctx.answers.sunSign}` : ''}</div>
+            </div>
+            <div class="wizard-field">
+              <label class="wizard-label">Birth time <span style="opacity:0.5; text-transform: none; letter-spacing: 0;">(optional — for deeper resonance)</span></label>
+              <input class="wizard-input" id="q-birthtime" type="time" oninput="wizardLiveCapture()" value="${escapeHtml(ctx.answers.birthTime || '')}">
+            </div>
+            <div class="wizard-field">
+              <label class="wizard-label">Birth place <span style="opacity:0.5; text-transform: none; letter-spacing: 0;">(optional)</span></label>
+              <input class="wizard-input" id="q-birthplace" type="text" oninput="wizardLiveCapture()" placeholder="City, Country" maxlength="80" value="${escapeHtml(ctx.answers.birthPlace || '')}">
+            </div>`;
+        },
+        validate(ctx) { return !!(ctx.answers.birthdate && /^\d{4}-\d{2}-\d{2}$/.test(ctx.answers.birthdate)); },
+        capture(ctx) {
+          ctx.answers.birthdate = document.getElementById('q-birthdate').value;
+          ctx.answers.birthTime = document.getElementById('q-birthtime').value;
+          ctx.answers.birthPlace = document.getElementById('q-birthplace').value.trim();
+          ctx.answers.sunSign = sunSignForDate(ctx.answers.birthdate);
+          const readout = document.getElementById('q-sign-readout');
+          if (readout) readout.textContent = ctx.answers.sunSign ? `Sun in ${ctx.answers.sunSign}` : '';
+        }
+      },
+      {
+        id: 'intention',
+        eyebrow: 'Intention',
+        question: 'What are you <em>calling in</em>?',
+        helper: 'A word, a feeling, a season of life. There are no wrong answers.',
+        render(ctx) {
+          return `
+            <textarea class="wizard-textarea" id="q-intention" oninput="wizardLiveCapture()" placeholder="More softness. Courage to begin. To feel like myself again..." maxlength="400">${escapeHtml(ctx.answers.intention || '')}</textarea>
+          `;
+        },
+        validate(ctx) { return (ctx.answers.intention || '').trim().length > 2; },
+        capture(ctx) { ctx.answers.intention = document.getElementById('q-intention').value.trim(); }
+      },
+      {
+        id: 'essence',
+        eyebrow: 'Essence',
+        question: 'Which essence <em>moves through you</em> most these days?',
+        helper: 'Choose the one that feels closest -- not the one you wish were true.',
+        type: 'options',
+        key: 'essence',
+        options: [
+          { value: 'seeker', title: 'The Seeker', desc: 'Curious, restless, in pursuit of meaning.' },
+          { value: 'sovereign', title: 'The Sovereign', desc: 'Self-led, decisive, holding your own throne.' },
+          { value: 'healer', title: 'The Healer', desc: 'Tender, nurturing, attuned to others and the unseen.' },
+          { value: 'wild', title: 'The Wild One', desc: 'Untamed, sensual, alive in your body.' },
+          { value: 'mystic', title: 'The Mystic', desc: 'Intuitive, dreamy, of two worlds at once.' },
+          { value: 'builder', title: 'The Builder', desc: 'Steady, devoted, making something that lasts.' }
+        ]
+      },
+      {
+        id: 'element',
+        eyebrow: 'Element',
+        question: 'Which element <em>pulls at you</em> right now?',
+        helper: 'Trust the first one that flickers.',
+        type: 'options',
+        key: 'element',
+        options: [
+          { value: 'earth', title: 'Earth', desc: 'I need grounding, steadiness, to come home to my body.' },
+          { value: 'water', title: 'Water', desc: 'I need to feel, to flow, to let something move through me.' },
+          { value: 'fire', title: 'Fire', desc: 'I need ignition, courage, the heat to begin.' },
+          { value: 'air', title: 'Air', desc: 'I need clarity, lift, room to think and breathe.' }
+        ]
+      },
+      {
+        id: 'release',
+        eyebrow: 'Release',
+        question: 'What are you ready to <em>release</em>?',
+        helper: 'Choose any that resonate. Up to four.',
+        type: 'chips',
+        key: 'release',
+        max: 4,
+        options: ['anxiety', 'self-doubt', 'grief', 'burnout', 'stagnation', 'old stories', 'heaviness', 'resentment', 'people-pleasing', 'fear of being seen', 'overthinking', 'shame']
+      },
+      {
+        id: 'amplify',
+        eyebrow: 'Amplify',
+        question: 'And what do you wish to <em>amplify</em>?',
+        helper: 'Up to four.',
+        type: 'chips',
+        key: 'amplify',
+        max: 4,
+        options: ['clarity', 'courage', 'softness', 'pleasure', 'abundance', 'creativity', 'grounding', 'presence', 'intuition', 'magnetism', 'devotion', 'play']
+      },
+      {
+        id: 'fear',
+        eyebrow: 'Whisper',
+        question: 'What is the fear that <em>quietly shapes</em> you?',
+        helper: 'Optional. The truer you are here, the truer the blend.',
+        render(ctx) {
+          return `<textarea class="wizard-textarea" id="q-fear" oninput="wizardLiveCapture()" placeholder="That I'll be left behind. That I'm too much. That nothing I make will matter..." maxlength="300">${escapeHtml(ctx.answers.fear || '')}</textarea>`;
+        },
+        validate() { return true; },
+        capture(ctx) { ctx.answers.fear = document.getElementById('q-fear').value.trim(); }
+      },
+      {
+        id: 'joy',
+        eyebrow: 'Joy',
+        question: 'When do you feel <em>most yourself</em>?',
+        helper: 'A specific moment, a sense, a season -- whatever rises.',
+        render(ctx) {
+          return `<textarea class="wizard-textarea" id="q-joy" oninput="wizardLiveCapture()" placeholder="Slow mornings. Dancing alone in the kitchen. The hour before sleep..." maxlength="300">${escapeHtml(ctx.answers.joy || '')}</textarea>`;
+        },
+        validate() { return true; },
+        capture(ctx) { ctx.answers.joy = document.getElementById('q-joy').value.trim(); }
+      },
+      {
+        id: 'moment',
+        eyebrow: 'Ritual',
+        question: 'When will this blend <em>meet you</em>?',
+        helper: 'Where it lives shapes how it sings.',
+        type: 'options',
+        key: 'moment',
+        options: [
+          { value: 'morning', title: 'Morning', desc: 'A pulse-point ritual to begin the day.' },
+          { value: 'evening', title: 'Evening', desc: 'To soften the edges, before sleep.' },
+          { value: 'altar', title: 'At the Altar', desc: 'For meditation, journaling, sacred space.' },
+          { value: 'throughout', title: 'Throughout the Day', desc: 'Carried with me, returned to often.' }
+        ]
+      },
+      {
+        id: 'scent',
+        eyebrow: 'Scent',
+        question: 'Your nose leans toward...',
+        helper: 'There\'s no wrong path -- the alchemist will weave around you.',
+        type: 'options',
+        key: 'scent',
+        options: [
+          { value: 'earthy', title: 'Earthy + Grounding', desc: 'Vetiver, oakmoss, sandalwood, patchouli.' },
+          { value: 'bright', title: 'Bright + Citrus', desc: 'Bergamot, sweet orange, neroli, grapefruit.' },
+          { value: 'floral', title: 'Floral + Soft', desc: 'Rose, jasmine, ylang ylang, geranium.' },
+          { value: 'smoky', title: 'Smoky + Resinous', desc: 'Frankincense, myrrh, palo santo, cedar.' },
+          { value: 'herbal', title: 'Herbal + Green', desc: 'Clary sage, rosemary, lavender, eucalyptus.' },
+          { value: 'trust', title: 'Let the Alchemist Choose', desc: 'I trust the divination.' }
+        ]
+      },
+      {
+        id: 'identity',
+        eyebrow: 'Final',
+        question: 'Who shall this blend <em>be made for</em>?',
+        helper: 'Your name will be inscribed on the bottle.',
+        render(ctx) {
+          return `
+            <div class="wizard-field">
+              <label class="wizard-label">First name</label>
+              <input class="wizard-input" id="q-name" type="text" oninput="wizardLiveCapture()" placeholder="Your name" maxlength="60" value="${escapeHtml(ctx.answers.name || '')}">
+            </div>
+            <div class="wizard-field">
+              <label class="wizard-label">Email <span style="opacity:0.5; text-transform: none; letter-spacing: 0;">(optional, so we can send your recipe)</span></label>
+              <input class="wizard-input" id="q-email" type="email" oninput="wizardLiveCapture()" placeholder="you@somewhere.com" value="${escapeHtml(ctx.answers.email || '')}">
+            </div>`;
+        },
+        validate() {
+          const name = document.getElementById('q-name')?.value.trim() || '';
+          return name.length >= 1;
+        },
+        capture(ctx) {
+          ctx.answers.name = document.getElementById('q-name').value.trim();
+          ctx.answers.email = document.getElementById('q-email').value.trim();
+        }
+      }
+    ];
+
+    const wizardCtx = {
+      step: 0,
+      answers: {
+        birthdate: '', birthTime: '', birthPlace: '', sunSign: '',
+        intention: '', essence: '', element: '', release: [], amplify: [],
+        fear: '', joy: '', moment: '', scent: '', name: '', email: ''
+      },
+      result: null,
+      loading: false,
+      error: null
+    };
+
+    function openWizard() {
+      wizardCtx.step = 0;
+      wizardCtx.result = null;
+      wizardCtx.error = null;
+      wizardCtx.loading = false;
+      document.getElementById('wizard-overlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      renderWizard();
+    }
+
+    function closeWizard() {
+      document.getElementById('wizard-overlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function renderWizard() {
+      const totalQuizSteps = wizardSteps.length;
+      const isResult = wizardCtx.result !== null;
+      const isLoading = wizardCtx.loading;
+
+      const dotsHtml = wizardSteps.slice(1).map((_, i) => {
+        const stepIdx = i + 1;
+        let cls = 'wizard-dot';
+        if (stepIdx < wizardCtx.step) cls += ' done';
+        else if (stepIdx === wizardCtx.step) cls += ' active';
+        return `<div class="${cls}"></div>`;
+      }).join('');
+      document.getElementById('wizard-progress').innerHTML = (isResult || isLoading) ? '' : dotsHtml;
+
+      const body = document.getElementById('wizard-body');
+
+      if (isLoading) {
+        body.innerHTML = `
+          <div class="wizard-divining">
+            <div class="divining-orb"></div>
+            <div class="divining-text" id="divining-text">Consulting the stones...</div>
+          </div>`;
+        cycleDiviningText();
+        return;
+      }
+
+      if (isResult) {
+        body.innerHTML = renderResult(wizardCtx.result);
+        return;
+      }
+
+      const step = wizardSteps[wizardCtx.step];
+      let inner;
+      if (step.render) {
+        if (wizardCtx.step === 0) {
+          body.innerHTML = step.render(wizardCtx);
+          return;
+        }
+        inner = step.render(wizardCtx);
+      } else if (step.type === 'options') {
+        const selected = wizardCtx.answers[step.key];
+        inner = `<div class="wizard-options">${step.options.map(o => `
+          <button class="wizard-option ${selected === o.value ? 'selected' : ''}" data-value="${escapeHtml(o.value)}" onclick="wizardSelectOption('${step.key}', '${escapeHtml(o.value)}')">
+            <span class="wizard-option-title">${escapeHtml(o.title)}</span>
+            <span class="wizard-option-desc">${escapeHtml(o.desc)}</span>
+          </button>`).join('')}</div>`;
+      } else if (step.type === 'chips') {
+        const selected = wizardCtx.answers[step.key] || [];
+        inner = `<div class="wizard-chips">${step.options.map(o => `
+          <button class="wizard-chip ${selected.includes(o) ? 'selected' : ''}" onclick="wizardToggleChip('${step.key}', '${escapeHtml(o)}', ${step.max})">${escapeHtml(o)}</button>
+        `).join('')}</div>
+        <p class="wizard-chip-hint">Choose up to ${step.max}</p>`;
+      }
+
+      const errorHtml = wizardCtx.error ? `<div class="wizard-error">${escapeHtml(wizardCtx.error)}</div>` : '';
+      const isLast = wizardCtx.step === wizardSteps.length - 1;
+      const canAdvance = stepIsValid();
+
+      body.innerHTML = `
+        <div class="wizard-step active">
+          <p class="wizard-eyebrow">${escapeHtml(step.eyebrow)}</p>
+          <h3 class="wizard-question">${step.question}</h3>
+          ${step.helper ? `<p class="wizard-helper">${step.helper}</p>` : ''}
+          ${inner}
+          ${errorHtml}
+          <div class="wizard-nav">
+            <button class="wizard-back" onclick="wizardBack()" ${wizardCtx.step <= 1 ? 'disabled' : ''}>&larr; Back</button>
+            <button class="wizard-next" onclick="wizardNext()" ${canAdvance ? '' : 'disabled'}>${isLast ? 'Divine My Blend' : 'Continue'}</button>
+          </div>
+        </div>`;
+    }
+
+    function wizardLiveCapture() {
+      const step = wizardSteps[wizardCtx.step];
+      if (step.capture) { try { step.capture(wizardCtx); } catch {} }
+      const nextBtn = document.querySelector('#wizard-body .wizard-next');
+      if (nextBtn) nextBtn.disabled = !stepIsValid();
+    }
+
+    function stepIsValid() {
+      const step = wizardSteps[wizardCtx.step];
+      if (step.validate) {
+        try { return step.validate(wizardCtx); } catch { return false; }
+      }
+      if (step.type === 'options') return !!wizardCtx.answers[step.key];
+      if (step.type === 'chips') return (wizardCtx.answers[step.key] || []).length > 0;
+      return true;
+    }
+
+    function wizardSelectOption(key, value) {
+      wizardCtx.answers[key] = value;
+      renderWizard();
+    }
+
+    function wizardToggleChip(key, value, max) {
+      const arr = wizardCtx.answers[key] || [];
+      const idx = arr.indexOf(value);
+      if (idx >= 0) arr.splice(idx, 1);
+      else if (arr.length < max) arr.push(value);
+      wizardCtx.answers[key] = arr;
+      renderWizard();
+    }
+
+    function wizardBack() {
+      if (wizardCtx.step <= 0) return;
+      wizardCtx.step -= 1;
+      wizardCtx.error = null;
+      renderWizard();
+    }
+
+    async function wizardNext() {
+      const step = wizardSteps[wizardCtx.step];
+      if (step.capture) {
+        try { step.capture(wizardCtx); } catch {}
+      }
+      if (!stepIsValid()) {
+        renderWizard();
+        return;
+      }
+      wizardCtx.error = null;
+
+      if (wizardCtx.step === wizardSteps.length - 1) {
+        await submitWizard();
+        return;
+      }
+      wizardCtx.step += 1;
+      renderWizard();
+    }
+
+    async function submitWizard() {
+      wizardCtx.loading = true;
+      renderWizard();
+      try {
+        const res = await fetch('/api/recommend', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(wizardCtx.answers)
+        });
+        if (!res.ok) {
+          const txt = await res.text();
+          throw new Error(`The alchemist is unreachable (${res.status}). ${txt.slice(0, 140)}`);
+        }
+        const data = await res.json();
+        if (!data || !data.blendName) throw new Error('The divination came back empty. Please try again.');
+        wizardCtx.result = data;
+      } catch (e) {
+        wizardCtx.error = e.message || 'Something interrupted the divination.';
+        wizardCtx.loading = false;
+        renderWizard();
+        return;
+      }
+      wizardCtx.loading = false;
+      renderWizard();
+    }
+
+    let diviningTimer = null;
+    const diviningPhrases = [
+      'Consulting the stones...',
+      'Listening for your intention...',
+      'Reading the elements...',
+      'Composing your blend...'
+    ];
+    function cycleDiviningText() {
+      clearInterval(diviningTimer);
+      let i = 0;
+      diviningTimer = setInterval(() => {
+        const el = document.getElementById('divining-text');
+        if (!el) { clearInterval(diviningTimer); return; }
+        i = (i + 1) % diviningPhrases.length;
+        el.textContent = diviningPhrases[i];
+      }, 1800);
+    }
+
+    function renderResult(r) {
+      const stones = (r.stones || []).map(s => `
+        <div class="result-ingredient">
+          <div class="result-ingredient-name">${escapeHtml(s.name)}</div>
+          <div class="result-ingredient-why">${escapeHtml(s.why)}</div>
+        </div>`).join('');
+      const oils = (r.oils || []).map(o => `
+        <div class="result-ingredient">
+          <div class="result-ingredient-name">${escapeHtml(o.name)}</div>
+          <div class="result-ingredient-why">${escapeHtml(o.why)}</div>
+        </div>`).join('');
+      const ritualHtml = r.ritual ? `
+        <div class="result-ritual">
+          <div class="result-ritual-label">A Ritual</div>
+          <div class="result-ritual-text">${escapeHtml(r.ritual)}</div>
+        </div>` : '';
+      return `
+        <div class="wizard-result">
+          <p class="result-eyebrow">Your Bespoke Blend</p>
+          <h3 class="result-name">${escapeHtml(r.blendName)}</h3>
+          <p class="result-for">For ${escapeHtml(wizardCtx.answers.name || 'you')}</p>
+          <p class="result-description">${escapeHtml(r.description || '')}</p>
+          ${ritualHtml}
+          <div class="result-section">
+            <div class="result-section-label">Stones &amp; Crystals</div>
+            ${stones}
+          </div>
+          <div class="result-section">
+            <div class="result-section-label">Oils &amp; Botanicals</div>
+            ${oils}
+          </div>
+          <div class="result-actions">
+            <button class="result-claim" onclick="claimBespoke()">Claim Your Blend &middot; $${BESPOKE_PRICE.toFixed(0)}</button>
+            <button class="result-retry" onclick="retryWizard()">Begin again</button>
+          </div>
+        </div>`;
+    }
+
+    function retryWizard() {
+      wizardCtx.step = 1;
+      wizardCtx.result = null;
+      wizardCtx.error = null;
+      renderWizard();
+    }
+
+    function claimBespoke() {
+      const r = wizardCtx.result;
+      if (!r) return;
+      const p = products.bespoke;
+      const recipe = {
+        blendName: r.blendName,
+        recipientName: wizardCtx.answers.name,
+        recipientEmail: wizardCtx.answers.email,
+        intention: wizardCtx.answers.intention,
+        stones: r.stones,
+        oils: r.oils,
+        description: r.description,
+        ritual: r.ritual,
+        quizAnswers: wizardCtx.answers,
+        createdAt: new Date().toISOString()
+      };
+      cart.push({
+        id: 'bespoke-' + Date.now(),
+        name: `${r.blendName} (Bespoke Blend)`,
+        series: 'Bespoke',
+        img: p.img,
+        size: p.sizes[0].label,
+        price: BESPOKE_PRICE,
+        sizeIdx: 0,
+        qty: 1,
+        recipe
+      });
+      updateCartBadge();
+      renderCart();
+      closeWizard();
+      openCart();
+      showToast('Your bespoke blend has been added');
     }
 
     // ========== SMOKE PARTICLE SYSTEM ==========
@@ -1217,7 +2109,7 @@
 
     // Keyboard: Escape to close modals
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closeModal(); closeCart(); }
+      if (e.key === 'Escape') { closeModal(); closeCart(); closeWizard(); }
     });
 
     // Init cart badge
