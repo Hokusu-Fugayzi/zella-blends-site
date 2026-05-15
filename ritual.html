@@ -3,42 +3,146 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ritual · Zella Blends</title>
+  <title>The Ritual — Zella Blends</title>
+  <meta name="description" content="A short, daily moment to anoint the wrists, the temples, the heart — and to let intention settle alongside scent.">
   <link rel="icon" type="image/png" href="images/zella logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="test.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="page">
+<body>
+
+  <div class="announce">Hand-blended in small batch · A ritual card folded into every order</div>
+
   <header class="site-header">
-    <a href="test.html" class="logo">
-      <img src="images/ZELLA JUST MINI.png" alt="ZB">
-      <span class="logo-word">Zella Blends</span>
+    <div class="nav-left">
+      <a href="products.html" class="nav-link">Shop</a>
+      <a href="ritual.html" class="nav-link active">Ritual</a>
+      <a href="story.html" class="nav-link">Story</a>
+    </div>
+    <a href="index.html" class="brandmark">
+      <span class="wordmark">Zella Blends</span>
+      <span class="sub">Crystal · Oil · Intention</span>
     </a>
-    <nav class="top">
-      <a href="ritual.html" class="active">Ritual</a>
-      <a href="story.html">Story</a>
-      <a href="products.html">All Products</a>
-      <a href="#" class="cart" aria-label="Cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 4h2.2l1.5 11a2 2 0 0 0 2 1.7h8.6a2 2 0 0 0 2-1.6L21 8H6"/>
-          <circle cx="9.5" cy="20" r="1.2"/>
-          <circle cx="17" cy="20" r="1.2"/>
-        </svg>
-        <span class="label-hide">Bag</span>
-      </a>
-    </nav>
+    <div class="nav-right">
+      <a href="bespoke.html" class="nav-link bag-link-extra">Bespoke</a>
+      <button class="bag-btn" onclick="openCart()">Bag&nbsp;<span data-cart-count>(0)</span></button>
+      <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileNav(true)"><span></span><span></span><span></span></button>
+    </div>
   </header>
 
-  <main class="page-main">
-    <div class="page-eyebrow">The Practice</div>
-    <h1 class="page-title">Ritual</h1>
-    <p class="page-lede">A short, daily moment to anoint the wrists, the temples, the heart — and to let intention settle alongside scent.</p>
-    <div class="page-body">
-      <p>[Placeholder copy. Replace with a description of how to use a Zella blend — when, where, the order of the steps, and the intention behind each.]</p>
-      <p>[Add stories or testimonials, or a step-by-step illustration of the ritual.]</p>
+  <nav class="mobile-nav">
+    <button class="close" aria-label="Close" onclick="toggleMobileNav(false)">&times;</button>
+    <a href="products.html">Shop</a>
+    <a href="ritual.html">Ritual</a>
+    <a href="bespoke.html">Bespoke</a>
+    <a href="story.html">Story</a>
+    <a href="#" onclick="event.preventDefault();toggleMobileNav(false);openCart()">Bag</a>
+  </nav>
+
+  <section class="page-hero">
+    <span class="eyebrow">The Practice</span>
+    <h1 class="display">The Ritual</h1>
+    <p>A short, daily moment to anoint the wrists, the temples, the heart — and to let intention settle alongside scent.</p>
+  </section>
+
+  <article class="editorial">
+    <p class="reveal">A Zella Blend is not a fragrance you apply and forget. It is an invitation to pause. The ritual takes less than a minute, and it asks only that you mean it.</p>
+
+    <div class="steps reveal">
+      <div class="step">
+        <div class="num">01</div>
+        <div><h3>Still</h3><p>Hold the bottle in both hands. Take one slow breath in, and a slower one out. Let the day fall away from your shoulders before you begin.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <div><h3>Set</h3><p>Name your intention — a word, a feeling, a quiet hope. Say it once, silently. The blend is already charged; this is you meeting it halfway.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <div><h3>Anoint</h3><p>Roll the oil onto the pulse points: inner wrists, behind the ears, the base of the throat, the still center of the chest. Move without hurry.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <div><h3>Breathe</h3><p>Bring your wrists to your face. Inhale three times — long, full, unhurried — and let the scent carry the intention inward.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">05</div>
+        <div><h3>Return</h3><p>Through the day, when you catch the scent again, let it call you back to the intention you set. That is the whole of it.</p></div>
+      </div>
     </div>
-  </main>
+
+    <blockquote class="pullquote reveal">
+      “Wellness isn't something you buy — it's something you practice.”
+      <cite>Tab, Founder &amp; Alchemist</cite>
+    </blockquote>
+
+    <h3 class="reveal">When to wear it</h3>
+    <p class="reveal">A morning blend opens the day. An evening blend softens its edges. Some keep one at the altar for meditation and journaling; others carry it and return to it often. There is no wrong moment — only the one you choose.</p>
+
+    <div style="text-align:center;margin-top:3.5rem;" class="reveal">
+      <a href="products.html" class="btn">Find Your Blend</a>
+    </div>
+  </article>
+
+  <section class="bespoke-band">
+    <div class="reveal">
+      <span class="eyebrow">Made for You Alone</span>
+      <h2>A blend <em>divined</em> specifically for your spirit</h2>
+      <p>Let the alchemist compose a one-of-one blend from Zella's full library of stones and sacred oils.</p>
+      <a href="bespoke.html" class="btn inverse">Begin Your Divination</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="wordmark">Zella Blends</div>
+        <p>Handcrafted crystal-infused oil blends. Where alchemy meets the earth.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="products.html">All Blends</a>
+        <a href="product.html?id=signature">Signature</a>
+        <a href="product.html?id=body-oil">Body Oils</a>
+        <a href="bespoke.html">Bespoke</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="story.html">Our Story</a>
+        <a href="ritual.html">The Ritual</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@ZellaBlends.com">info@ZellaBlends.com</a>
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zella Blends — All rights reserved</span>
+      <div class="soc">
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:info@ZellaBlends.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
+    <div class="cart-header">
+      <h3>Your Ritual</h3>
+      <button onclick="closeCart()" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Subtotal</span><span id="cart-total">$0.00</span></div>
+      <button class="checkout-btn" onclick="demoCheckout()">Proceed to Checkout</button>
+      <p class="cart-note">Demo mode · no real charges</p>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+  <script src="assets/site.js"></script>
 </body>
 </html>

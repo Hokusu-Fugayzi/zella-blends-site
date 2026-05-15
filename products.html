@@ -3,239 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Products · Zella Blends</title>
+  <title>Shop All Blends — Zella Blends</title>
+  <meta name="description" content="Every blend in the Zella library — elemental, signature, body, and bespoke.">
   <link rel="icon" type="image/png" href="images/zella logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="test.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="page">
+<body>
+
+  <div class="announce">Hand-blended in small batch · A ritual card folded into every order</div>
+
   <header class="site-header">
-    <a href="test.html" class="logo">
-      <img src="images/ZELLA JUST MINI.png" alt="ZB">
-      <span class="logo-word">Zella Blends</span>
+    <div class="nav-left">
+      <a href="products.html" class="nav-link active">Shop</a>
+      <a href="ritual.html" class="nav-link">Ritual</a>
+      <a href="story.html" class="nav-link">Story</a>
+    </div>
+    <a href="index.html" class="brandmark">
+      <span class="wordmark">Zella Blends</span>
+      <span class="sub">Crystal · Oil · Intention</span>
     </a>
-    <nav class="top">
-      <a href="ritual.html">Ritual</a>
-      <a href="story.html">Story</a>
-      <a href="products.html" class="active">All Products</a>
-      <a href="#" class="cart" aria-label="Cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 4h2.2l1.5 11a2 2 0 0 0 2 1.7h8.6a2 2 0 0 0 2-1.6L21 8H6"/>
-          <circle cx="9.5" cy="20" r="1.2"/>
-          <circle cx="17" cy="20" r="1.2"/>
-        </svg>
-        <span class="label-hide">Bag</span>
-      </a>
-    </nav>
+    <div class="nav-right">
+      <a href="bespoke.html" class="nav-link bag-link-extra">Bespoke</a>
+      <button class="bag-btn" onclick="openCart()">Bag&nbsp;<span data-cart-count>(0)</span></button>
+      <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileNav(true)"><span></span><span></span><span></span></button>
+    </div>
   </header>
 
-  <main class="page-main">
-    <div class="page-eyebrow">The Catalog</div>
-    <h1 class="page-title">All Products</h1>
-    <p class="page-lede">Every blend in the Zella library — elemental, signature, body. Pulled from inventory in real time once Square is wired up.</p>
+  <nav class="mobile-nav">
+    <button class="close" aria-label="Close" onclick="toggleMobileNav(false)">&times;</button>
+    <a href="products.html">Shop</a>
+    <a href="ritual.html">Ritual</a>
+    <a href="bespoke.html">Bespoke</a>
+    <a href="story.html">Story</a>
+    <a href="#" onclick="event.preventDefault();toggleMobileNav(false);openCart()">Bag</a>
+  </nav>
 
-    <section class="product-grid" aria-label="All products">
-      <a class="tile" data-product="earth" href="#earth">
-        <img src="images/earth-blend.webp" alt="Earth Blend">
-        <div class="tile-meta"><span class="tile-name">Earth</span><span class="tile-price">$32</span></div>
-        <div class="tile-hover">
-          <div class="tile-hover-eyebrow">Elemental · 01</div>
-          <div class="tile-hover-name">Earth</div>
-          <div class="tile-hover-desc">Grounding blend with smoky quartz and sandalwood.</div>
-          <div class="tile-hover-cta">View · $32</div>
-        </div>
-      </a>
-      <a class="tile" data-product="air" href="#air">
-        <img src="images/air-blend.webp" alt="Air Blend">
-        <div class="tile-meta"><span class="tile-name">Air</span><span class="tile-price">$32</span></div>
-        <div class="tile-hover">
-          <div class="tile-hover-eyebrow">Elemental · 02</div>
-          <div class="tile-hover-name">Air</div>
-          <div class="tile-hover-desc">Clarifying blend with clear quartz and bergamot.</div>
-          <div class="tile-hover-cta">View · $32</div>
-        </div>
-      </a>
-      <a class="tile" data-product="fire" href="#fire">
-        <img src="images/fire-blend.webp" alt="Fire Blend">
-        <div class="tile-meta"><span class="tile-name">Fire</span><span class="tile-price">$32</span></div>
-        <div class="tile-hover">
-          <div class="tile-hover-eyebrow">Elemental · 03</div>
-          <div class="tile-hover-name">Fire</div>
-          <div class="tile-hover-desc">Vitalizing blend with carnelian and ginger.</div>
-          <div class="tile-hover-cta">View · $32</div>
-        </div>
-      </a>
-      <a class="tile" data-product="water" href="#water">
-        <img src="images/water-blend.webp" alt="Water Blend">
-        <div class="tile-meta"><span class="tile-name">Water</span><span class="tile-price">$32</span></div>
-        <div class="tile-hover">
-          <div class="tile-hover-eyebrow">Elemental · 04</div>
-          <div class="tile-hover-name">Water</div>
-          <div class="tile-hover-desc">Flowing blend with moonstone and jasmine.</div>
-          <div class="tile-hover-cta">View · $32</div>
-        </div>
-      </a>
-      <a class="tile" data-product="signature" href="#signature">
-        <img src="images/signature-blend.webp" alt="Zella Blend">
-        <div class="tile-meta"><span class="tile-name">Zella</span><span class="tile-price">$48</span></div>
-        <div class="tile-hover">
-          <div class="tile-hover-eyebrow">Signature</div>
-          <div class="tile-hover-name">Zella</div>
-          <div class="tile-hover-desc">The signature blend — every element together.</div>
-          <div class="tile-hover-cta">View · $48</div>
-        </div>
-      </a>
-      <a class="tile" data-product="body" href="#body">
-        <img src="images/body-oil.webp" alt="Body + Massage Oil">
-        <div class="tile-meta"><span class="tile-name">Body Oil</span><span class="tile-price">$54</span></div>
-        <div class="tile-hover">
-          <div class="tile-hover-eyebrow">Body</div>
-          <div class="tile-hover-name">Body Oil</div>
-          <div class="tile-hover-desc">For daily ritual and full-body anointing.</div>
-          <div class="tile-hover-cta">View · $54</div>
-        </div>
-      </a>
-    </section>
-  </main>
+  <section class="page-hero">
+    <span class="eyebrow">The Library</span>
+    <h1 class="display">All Blends</h1>
+    <p>Every blend in the Zella library — elemental, signature, body, and one divined for you alone.</p>
+  </section>
 
-  <div class="product-modal-backdrop" id="modal-backdrop"></div>
-  <article class="product-modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
-    <button class="product-modal-close" id="modal-close" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
-    </button>
-    <div class="product-modal-image"><img id="modal-img" src="" alt=""></div>
-    <div class="product-modal-body">
-      <div class="product-modal-eyebrow" id="modal-eyebrow"></div>
-      <h2 class="product-modal-name" id="modal-name"></h2>
-      <div class="product-modal-price" id="modal-price"></div>
-      <p class="product-modal-desc" id="modal-desc"></p>
-      <dl class="product-modal-attrs">
-        <dt>Crystals</dt><dd id="modal-crystals"></dd>
-        <dt>Notes</dt><dd id="modal-notes"></dd>
-        <dt>Size</dt><dd id="modal-size"></dd>
-      </dl>
-      <div class="product-modal-actions">
-        <button class="product-btn" id="modal-add">Add to Ritual</button>
-        <button class="product-btn primary" id="modal-buy">Buy Now</button>
+  <section class="section">
+    <div class="wrap">
+      <div class="product-grid reveal">
+        <a class="product-card" href="product.html?id=earth">
+          <div class="img-wrap"><img src="images/earth-blend.webp" alt="Earth Blend"></div>
+          <div class="series">Elemental Series</div><div class="name">Earth</div>
+          <div class="desc">Grounding blend — vetiver, cedarwood, moss agate.</div>
+          <div class="price">$39 – $49</div><span class="card-cta">View</span>
+        </a>
+        <a class="product-card" href="product.html?id=water">
+          <div class="img-wrap"><img src="images/water-blend.webp" alt="Water Blend"></div>
+          <div class="series">Elemental Series</div><div class="name">Water</div>
+          <div class="desc">Flowing blend — ylang ylang, blue lace agate, moonstone.</div>
+          <div class="price">$39 – $49</div><span class="card-cta">View</span>
+        </a>
+        <a class="product-card" href="product.html?id=fire">
+          <div class="img-wrap"><img src="images/fire-blend.webp" alt="Fire Blend"></div>
+          <div class="series">Elemental Series</div><div class="name">Fire</div>
+          <div class="desc">Igniting blend — cinnamon, carnelian, tiger's eye.</div>
+          <div class="price">$39 – $49</div><span class="card-cta">View</span>
+        </a>
+        <a class="product-card" href="product.html?id=air">
+          <div class="img-wrap"><img src="images/air-blend.webp" alt="Air Blend"></div>
+          <div class="series">Elemental Series</div><div class="name">Air</div>
+          <div class="desc">Liberating blend — eucalyptus, clear quartz, angelite.</div>
+          <div class="price">$39 – $49</div><span class="card-cta">View</span>
+        </a>
+        <a class="product-card" href="product.html?id=signature">
+          <div class="img-wrap"><img src="images/signature-blend.webp" alt="Zella Blend"></div>
+          <div class="series">Signature Series</div><div class="name">Zella Blend</div>
+          <div class="desc">The original formula — 7+ crystals, 12+ oils.</div>
+          <div class="price">$39 – $49</div><span class="card-cta">View</span>
+        </a>
+        <a class="product-card" href="product.html?id=elemental-bundle">
+          <div class="img-wrap"><img src="images/elemental-bundle.webp" alt="Elemental Series Bundle"></div>
+          <div class="series">Elemental Series</div><div class="name">Elemental Bundle</div>
+          <div class="desc">All four elements — the complete sacred set.</div>
+          <div class="price">$119 – $149</div><span class="card-cta">View</span>
+        </a>
+        <a class="product-card" href="product.html?id=signature-bundle">
+          <div class="img-wrap"><img src="images/signature-bundle.webp" alt="Zella Blend Bundle"></div>
+          <div class="series">Signature Series</div><div class="name">Signature Bundle</div>
+          <div class="desc">Four bottles of the original Zella Blend.</div>
+          <div class="price">$119 – $149</div><span class="card-cta">View</span>
+        </a>
+        <a class="product-card" href="product.html?id=body-oil">
+          <div class="img-wrap"><img src="images/body-oil.webp" alt="Body and Massage Oil"></div>
+          <div class="series">Body Oils</div><div class="name">Body + Massage Oil</div>
+          <div class="desc">Nourishing botanical oil for skin and spirit.</div>
+          <div class="price">$29</div><span class="card-cta">View</span>
+        </a>
+      </div>
+
+      <div style="margin-top:5rem;border:1px solid var(--ink);padding:clamp(2.5rem,6vw,5rem);text-align:center;" class="reveal">
+        <span class="eyebrow" style="display:block;margin-bottom:1.4rem;">Made for You Alone</span>
+        <h2 style="font-family:var(--display);font-weight:300;font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:1.2rem;">The Bespoke Blend</h2>
+        <p style="color:var(--ink-soft);max-width:38rem;margin:0 auto 2.2rem;">Answer a handful of intimate questions and the alchemist will divine a one-of-one blend from Zella's full library of stones and sacred oils.</p>
+        <a href="bespoke.html" class="btn">Begin Your Divination</a>
       </div>
     </div>
-  </article>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="wordmark">Zella Blends</div>
+        <p>Handcrafted crystal-infused oil blends. Where alchemy meets the earth.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="products.html">All Blends</a>
+        <a href="product.html?id=signature">Signature</a>
+        <a href="product.html?id=body-oil">Body Oils</a>
+        <a href="bespoke.html">Bespoke</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="story.html">Our Story</a>
+        <a href="ritual.html">The Ritual</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@ZellaBlends.com">info@ZellaBlends.com</a>
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zella Blends — All rights reserved</span>
+      <div class="soc">
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:info@ZellaBlends.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
+    <div class="cart-header">
+      <h3>Your Ritual</h3>
+      <button onclick="closeCart()" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Subtotal</span><span id="cart-total">$0.00</span></div>
+      <button class="checkout-btn" onclick="demoCheckout()">Proceed to Checkout</button>
+      <p class="cart-note">Demo mode · no real charges</p>
+    </div>
+  </aside>
+
   <div class="toast" id="toast"></div>
-
-  <script>
-    const products = {
-      earth: {
-        eyebrow: 'Elemental · 01', name: 'Earth', price: '$32',
-        img: 'images/earth-blend.webp',
-        desc: 'A grounding ritual blend, anchored by smoky quartz to draw stability into the body and mind. Sandalwood and vetiver create a warm, earthen base — like walking barefoot through autumn moss.',
-        crystals: 'Smoky Quartz · Black Tourmaline',
-        notes: 'Sandalwood · Vetiver · Patchouli',
-        size: '0.33 fl oz / 10 ml roller'
-      },
-      air: {
-        eyebrow: 'Elemental · 02', name: 'Air', price: '$32',
-        img: 'images/air-blend.webp',
-        desc: 'A clarifying blend to lift fog and sharpen attention. Clear quartz amplifies bright citrus and herbal notes — for the breath between thoughts.',
-        crystals: 'Clear Quartz · Selenite',
-        notes: 'Bergamot · Eucalyptus · Lavender',
-        size: '0.33 fl oz / 10 ml roller'
-      },
-      fire: {
-        eyebrow: 'Elemental · 03', name: 'Fire', price: '$32',
-        img: 'images/fire-blend.webp',
-        desc: 'A vitalizing blend for movement and creative spark. Carnelian carries the warmth of ginger, cinnamon, and orange — light a candle, then this.',
-        crystals: 'Carnelian · Sunstone',
-        notes: 'Ginger · Cinnamon · Sweet Orange',
-        size: '0.33 fl oz / 10 ml roller'
-      },
-      water: {
-        eyebrow: 'Elemental · 04', name: 'Water', price: '$32',
-        img: 'images/water-blend.webp',
-        desc: 'A flowing blend for emotional release and intuition. Moonstone moves with jasmine and ylang-ylang — soft, oceanic, restorative.',
-        crystals: 'Moonstone · Aquamarine',
-        notes: 'Jasmine · Ylang-Ylang · Sea Mist',
-        size: '0.33 fl oz / 10 ml roller'
-      },
-      signature: {
-        eyebrow: 'Signature', name: 'Zella', price: '$48',
-        img: 'images/signature-blend.webp',
-        desc: 'The signature blend. Every element together — earth, air, fire, water — woven into a single ritual oil. Worn by the founder daily.',
-        crystals: 'Smoky Quartz · Clear Quartz · Carnelian · Moonstone',
-        notes: 'Sandalwood · Bergamot · Ginger · Jasmine',
-        size: '0.33 fl oz / 10 ml roller'
-      },
-      body: {
-        eyebrow: 'Body', name: 'Body Oil', price: '$54',
-        img: 'images/body-oil.webp',
-        desc: 'A larger-format body and massage oil for full ritual. Sweet almond and jojoba carry a custom blend — pour into the bath, anoint after, breathe.',
-        crystals: 'Rose Quartz infusion',
-        notes: 'Rose · Sandalwood · Sweet Almond',
-        size: '4 fl oz / 120 ml'
-      }
-    };
-
-    const modal = document.getElementById('modal');
-    const backdrop = document.getElementById('modal-backdrop');
-    const toast = document.getElementById('toast');
-
-    function openProduct(id) {
-      const p = products[id];
-      if (!p) return;
-      document.getElementById('modal-img').src = p.img;
-      document.getElementById('modal-img').alt = p.name + ' — ' + p.eyebrow;
-      document.getElementById('modal-eyebrow').textContent = p.eyebrow;
-      document.getElementById('modal-name').textContent = p.name;
-      document.getElementById('modal-price').textContent = p.price;
-      document.getElementById('modal-desc').textContent = p.desc;
-      document.getElementById('modal-crystals').textContent = p.crystals;
-      document.getElementById('modal-notes').textContent = p.notes;
-      document.getElementById('modal-size').textContent = p.size;
-      modal.dataset.current = id;
-      modal.classList.add('open');
-      backdrop.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeProduct() {
-      modal.classList.remove('open');
-      backdrop.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => toast.classList.remove('show'), 2200);
-    }
-
-    document.querySelectorAll('.tile[data-product]').forEach(tile => {
-      tile.addEventListener('click', e => {
-        e.preventDefault();
-        openProduct(tile.dataset.product);
-      });
-    });
-    document.getElementById('modal-close').addEventListener('click', closeProduct);
-    backdrop.addEventListener('click', closeProduct);
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.classList.contains('open')) closeProduct();
-    });
-
-    document.getElementById('modal-add').addEventListener('click', () => {
-      const id = modal.dataset.current;
-      showToast(`${products[id].name} added to ritual`);
-    });
-    document.getElementById('modal-buy').addEventListener('click', () => {
-      showToast('Checkout coming soon');
-    });
-
-    // Deep link support: /products.html#earth opens that product
-    if (window.location.hash) {
-      const id = window.location.hash.slice(1);
-      if (products[id]) openProduct(id);
-    }
-  </script>
+  <script src="assets/site.js"></script>
 </body>
 </html>

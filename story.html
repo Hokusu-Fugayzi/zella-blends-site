@@ -3,42 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Story · Zella Blends</title>
+  <title>Our Story — Zella Blends</title>
+  <meta name="description" content="Where alchemy meets the earth — the story of Tab and Zella Blends.">
   <link rel="icon" type="image/png" href="images/zella logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="test.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="page">
+<body>
+
+  <div class="announce">Hand-blended in small batch · A ritual card folded into every order</div>
+
   <header class="site-header">
-    <a href="test.html" class="logo">
-      <img src="images/ZELLA JUST MINI.png" alt="ZB">
-      <span class="logo-word">Zella Blends</span>
+    <div class="nav-left">
+      <a href="products.html" class="nav-link">Shop</a>
+      <a href="ritual.html" class="nav-link">Ritual</a>
+      <a href="story.html" class="nav-link active">Story</a>
+    </div>
+    <a href="index.html" class="brandmark">
+      <span class="wordmark">Zella Blends</span>
+      <span class="sub">Crystal · Oil · Intention</span>
     </a>
-    <nav class="top">
-      <a href="ritual.html">Ritual</a>
-      <a href="story.html" class="active">Story</a>
-      <a href="products.html">All Products</a>
-      <a href="#" class="cart" aria-label="Cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 4h2.2l1.5 11a2 2 0 0 0 2 1.7h8.6a2 2 0 0 0 2-1.6L21 8H6"/>
-          <circle cx="9.5" cy="20" r="1.2"/>
-          <circle cx="17" cy="20" r="1.2"/>
-        </svg>
-        <span class="label-hide">Bag</span>
-      </a>
-    </nav>
+    <div class="nav-right">
+      <a href="bespoke.html" class="nav-link bag-link-extra">Bespoke</a>
+      <button class="bag-btn" onclick="openCart()">Bag&nbsp;<span data-cart-count>(0)</span></button>
+      <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileNav(true)"><span></span><span></span><span></span></button>
+    </div>
   </header>
 
-  <main class="page-main">
-    <div class="page-eyebrow">The Founder</div>
-    <h1 class="page-title">Story</h1>
-    <p class="page-lede">Where alchemy meets the earth — handcrafted at the intersection of health, beauty, and ancient wisdom.</p>
-    <div class="page-body">
-      <p>[Placeholder copy. Replace with the founder's story, the inspiration behind the blends, and what the brand stands for.]</p>
-      <p>[Add the founder's photo and a longer-form narrative.]</p>
+  <nav class="mobile-nav">
+    <button class="close" aria-label="Close" onclick="toggleMobileNav(false)">&times;</button>
+    <a href="products.html">Shop</a>
+    <a href="ritual.html">Ritual</a>
+    <a href="bespoke.html">Bespoke</a>
+    <a href="story.html">Story</a>
+    <a href="#" onclick="event.preventDefault();toggleMobileNav(false);openCart()">Bag</a>
+  </nav>
+
+  <section class="page-hero">
+    <span class="eyebrow">Meet the Alchemist</span>
+    <h1 class="display">Our Story</h1>
+    <p>Where alchemy meets the earth — handcrafted at the intersection of health, beauty, and ancient wisdom.</p>
+  </section>
+
+  <article class="editorial">
+    <figure class="figure reveal">
+      <img src="images/founder.webp" alt="Tab, founder and alchemist of Zella Blends">
+      <figcaption>Tab — Founder &amp; Alchemist</figcaption>
+    </figure>
+
+    <p class="reveal">Zella Blends was born from Tab's deeply personal journey — a search for healing that led through ancient crystal wisdom, sacred oils, and the transformative power of intention-setting.</p>
+
+    <p class="reveal">What started as a private practice of blending oils with healing stones became something bigger: a calling to share this alchemy with others. Every Zella Blend carries the energy of that original intention — to create tools for transformation that honor both the earth and the spirit.</p>
+
+    <blockquote class="pullquote reveal">
+      “I believe that wellness isn't something you buy — it's something you practice. These blends are invitations to slow down, connect inward, and remember the magic that lives within you.”
+      <cite>Tab, Founder &amp; Alchemist</cite>
+    </blockquote>
+
+    <h3 class="reveal">The Practice</h3>
+    <p class="reveal">Every bottle is composed by hand in small batch — never mass-produced. Stones are chosen for their vibrational properties; oils for the way they meet the body and the breath. Nothing leaves the table without an intention set into it.</p>
+
+    <h3 class="reveal">Where Alchemy Meets the Earth</h3>
+    <p class="reveal">Zella sits at the sacred intersection of health, beauty, and ancient wisdom. The work is grounded but not without wonder — a quiet kind of magic you can carry on your wrists, your temples, the still center of your chest.</p>
+
+    <div style="text-align:center;margin-top:3.5rem;" class="reveal">
+      <a href="products.html" class="btn">Discover the Blends</a>
     </div>
-  </main>
+  </article>
+
+  <section class="bespoke-band">
+    <div class="reveal">
+      <span class="eyebrow">Made for You Alone</span>
+      <h2>A blend <em>divined</em> specifically for your spirit</h2>
+      <p>Let the alchemist compose a one-of-one blend from Zella's full library of stones and sacred oils.</p>
+      <a href="bespoke.html" class="btn inverse">Begin Your Divination</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="wordmark">Zella Blends</div>
+        <p>Handcrafted crystal-infused oil blends. Where alchemy meets the earth.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="products.html">All Blends</a>
+        <a href="product.html?id=signature">Signature</a>
+        <a href="product.html?id=body-oil">Body Oils</a>
+        <a href="bespoke.html">Bespoke</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="story.html">Our Story</a>
+        <a href="ritual.html">The Ritual</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@ZellaBlends.com">info@ZellaBlends.com</a>
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zella Blends — All rights reserved</span>
+      <div class="soc">
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:info@ZellaBlends.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
+    <div class="cart-header">
+      <h3>Your Ritual</h3>
+      <button onclick="closeCart()" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Subtotal</span><span id="cart-total">$0.00</span></div>
+      <button class="checkout-btn" onclick="demoCheckout()">Proceed to Checkout</button>
+      <p class="cart-note">Demo mode · no real charges</p>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+  <script src="assets/site.js"></script>
 </body>
 </html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zella Blends</title>
+  <meta name="description" content="A handcrafted crystal-infused oil blend from Zella Blends.">
+  <link rel="icon" type="image/png" href="images/zella logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <div class="announce">Hand-blended in small batch · A ritual card folded into every order</div>
+
+  <header class="site-header">
+    <div class="nav-left">
+      <a href="products.html" class="nav-link active">Shop</a>
+      <a href="ritual.html" class="nav-link">Ritual</a>
+      <a href="story.html" class="nav-link">Story</a>
+    </div>
+    <a href="index.html" class="brandmark">
+      <span class="wordmark">Zella Blends</span>
+      <span class="sub">Crystal · Oil · Intention</span>
+    </a>
+    <div class="nav-right">
+      <a href="bespoke.html" class="nav-link bag-link-extra">Bespoke</a>
+      <button class="bag-btn" onclick="openCart()">Bag&nbsp;<span data-cart-count>(0)</span></button>
+      <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileNav(true)"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav">
+    <button class="close" aria-label="Close" onclick="toggleMobileNav(false)">&times;</button>
+    <a href="products.html">Shop</a>
+    <a href="ritual.html">Ritual</a>
+    <a href="bespoke.html">Bespoke</a>
+    <a href="story.html">Story</a>
+    <a href="#" onclick="event.preventDefault();toggleMobileNav(false);openCart()">Bag</a>
+  </nav>
+
+  <main class="pdp" id="pdp">
+    <div class="pdp-media"><img id="p-img" src="" alt=""></div>
+    <div class="pdp-body">
+      <div class="breadcrumb"><a href="products.html">Shop</a> &nbsp;/&nbsp; <span id="p-crumb"></span></div>
+      <div class="series" id="p-series"></div>
+      <h1 id="p-name"></h1>
+      <div class="price" id="p-price"></div>
+      <p class="desc" id="p-desc"></p>
+
+      <div id="p-sizes-wrap">
+        <div class="size-label">Size</div>
+        <div class="size-options" id="p-sizes"></div>
+      </div>
+
+      <div class="qty-label">Quantity</div>
+      <div class="qty-control">
+        <button onclick="pdpQty(-1)">&minus;</button>
+        <span id="p-qty">1</span>
+        <button onclick="pdpQty(1)">+</button>
+      </div>
+
+      <button class="btn solid" style="width:100%;border:1px solid var(--ink);margin-bottom:2.6rem;" onclick="pdpAdd()">Add to Ritual</button>
+
+      <div class="apothecary">
+        <div class="ap-head">
+          <div class="t">Zella Blends</div>
+          <div class="s">Hand-blended · Small batch</div>
+        </div>
+        <div class="ap-line"><span>Blend</span><b id="ap-blend"></b></div>
+        <div class="ap-line"><span>Series</span><b id="ap-series"></b></div>
+        <div class="ap-line"><span>Format</span><b id="ap-format"></b></div>
+        <div class="ap-line"><span>Charged with</span><b>Single intention</b></div>
+        <div class="ap-line"><span>Origin</span><b>Made by Tab</b></div>
+      </div>
+    </div>
+  </main>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Keep Exploring</span>
+        <h2>More from the Library</h2>
+        <div class="rule-center"></div>
+      </div>
+      <div class="tile-grid reveal">
+        <a class="tile" href="products.html"><div><h3>All Blends</h3><p>The full Zella library.</p></div><span class="arrow">&rarr;</span></a>
+        <a class="tile" href="bespoke.html"><div><h3>Bespoke Blend</h3><p>One divined for you alone.</p></div><span class="arrow">&rarr;</span></a>
+        <a class="tile" href="ritual.html"><div><h3>The Ritual</h3><p>How to wear your blend.</p></div><span class="arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="wordmark">Zella Blends</div>
+        <p>Handcrafted crystal-infused oil blends. Where alchemy meets the earth.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="products.html">All Blends</a>
+        <a href="product.html?id=signature">Signature</a>
+        <a href="product.html?id=body-oil">Body Oils</a>
+        <a href="bespoke.html">Bespoke</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="story.html">Our Story</a>
+        <a href="ritual.html">The Ritual</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@ZellaBlends.com">info@ZellaBlends.com</a>
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zella Blends — All rights reserved</span>
+      <div class="soc">
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:info@ZellaBlends.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
+    <div class="cart-header">
+      <h3>Your Ritual</h3>
+      <button onclick="closeCart()" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Subtotal</span><span id="cart-total">$0.00</span></div>
+      <button class="checkout-btn" onclick="demoCheckout()">Proceed to Checkout</button>
+      <p class="cart-note">Demo mode · no real charges</p>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+  <script src="assets/site.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id') || 'signature';
+      const p = PRODUCTS[id] || PRODUCTS.signature;
+      let sizeIdx = 0, quantity = 1;
+
+      document.title = p.name + ' — Zella Blends';
+      document.getElementById('p-img').src = p.img;
+      document.getElementById('p-img').alt = p.name;
+      document.getElementById('p-crumb').textContent = p.name;
+      document.getElementById('p-series').textContent = p.series;
+      document.getElementById('p-name').textContent = p.name;
+      document.getElementById('p-desc').textContent = p.desc;
+      document.getElementById('ap-blend').textContent = p.blend || p.name;
+      document.getElementById('ap-series').textContent = p.series;
+
+      const sizesWrap = document.getElementById('p-sizes');
+      function paintPrice() {
+        document.getElementById('p-price').textContent = '$' + p.sizes[sizeIdx].price.toFixed(2);
+        document.getElementById('ap-format').textContent = p.sizes[sizeIdx].label;
+      }
+      p.sizes.forEach((s, i) => {
+        const b = document.createElement('button');
+        b.className = 'size-option' + (i === 0 ? ' selected' : '');
+        b.textContent = s.label;
+        b.onclick = () => {
+          sizeIdx = i;
+          sizesWrap.querySelectorAll('.size-option').forEach(x => x.classList.remove('selected'));
+          b.classList.add('selected');
+          paintPrice();
+        };
+        sizesWrap.appendChild(b);
+      });
+      document.getElementById('p-sizes-wrap').style.display = p.sizes.length > 1 ? 'block' : 'none';
+      paintPrice();
+
+      window.pdpQty = function (d) {
+        quantity = Math.max(1, quantity + d);
+        document.getElementById('p-qty').textContent = quantity;
+      };
+      window.pdpAdd = function () {
+        const size = p.sizes[sizeIdx];
+        const existing = cart.find(i => i.id === id && i.sizeIdx === sizeIdx);
+        if (existing) existing.qty += quantity;
+        else cart.push({ id, name: p.name, series: p.series, img: p.img, size: size.label, price: size.price, sizeIdx, qty: quantity });
+        persistCart();
+        updateCartBadge();
+        renderCart();
+        openCart();
+        showToast(p.name + ' added to your ritual');
+      };
+    })();
+  </script>
+</body>
+</html>

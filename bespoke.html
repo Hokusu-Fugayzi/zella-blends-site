@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bespoke Blend — Zella Blends</title>
+  <meta name="description" content="Answer a handful of intimate questions and the alchemist will divine a one-of-one blend made for you alone.">
+  <link rel="icon" type="image/png" href="images/zella logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="wizard-page">
+
+  <div class="announce">Hand-blended in small batch · A ritual card folded into every order</div>
+
+  <header class="site-header">
+    <div class="nav-left">
+      <a href="products.html" class="nav-link">Shop</a>
+      <a href="ritual.html" class="nav-link">Ritual</a>
+      <a href="story.html" class="nav-link">Story</a>
+    </div>
+    <a href="index.html" class="brandmark">
+      <span class="wordmark">Zella Blends</span>
+      <span class="sub">Crystal · Oil · Intention</span>
+    </a>
+    <div class="nav-right">
+      <a href="bespoke.html" class="nav-link bag-link-extra active">Bespoke</a>
+      <button class="bag-btn" onclick="openCart()">Bag&nbsp;<span data-cart-count>(0)</span></button>
+      <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileNav(true)"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav">
+    <button class="close" aria-label="Close" onclick="toggleMobileNav(false)">&times;</button>
+    <a href="products.html">Shop</a>
+    <a href="ritual.html">Ritual</a>
+    <a href="bespoke.html">Bespoke</a>
+    <a href="story.html">Story</a>
+    <a href="#" onclick="event.preventDefault();toggleMobileNav(false);openCart()">Bag</a>
+  </nav>
+
+  <section class="page-hero">
+    <span class="eyebrow">An Offering Made for You Alone</span>
+    <h1 class="display">The Bespoke Blend</h1>
+    <p>Answer a handful of intimate questions — about your intention, what you carry, what you hope to call in — and the alchemist will compose a one-of-one blend. No two are alike.</p>
+  </section>
+
+  <div class="wizard-shell">
+    <div class="wizard" id="wizard">
+      <div class="wizard-progress" id="wizard-progress"></div>
+      <div class="wizard-body" id="wizard-body"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="wordmark">Zella Blends</div>
+        <p>Handcrafted crystal-infused oil blends. Where alchemy meets the earth.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="products.html">All Blends</a>
+        <a href="product.html?id=signature">Signature</a>
+        <a href="product.html?id=body-oil">Body Oils</a>
+        <a href="bespoke.html">Bespoke</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="story.html">Our Story</a>
+        <a href="ritual.html">The Ritual</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@ZellaBlends.com">info@ZellaBlends.com</a>
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zella Blends — All rights reserved</span>
+      <div class="soc">
+        <a href="https://instagram.com/ZellaBlends" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:info@ZellaBlends.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
+    <div class="cart-header">
+      <h3>Your Ritual</h3>
+      <button onclick="closeCart()" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Subtotal</span><span id="cart-total">$0.00</span></div>
+      <button class="checkout-btn" onclick="demoCheckout()">Proceed to Checkout</button>
+      <p class="cart-note">Demo mode · no real charges</p>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+  <script src="assets/site.js"></script>
+  <script src="assets/bespoke.js"></script>
+</body>
+</html>
