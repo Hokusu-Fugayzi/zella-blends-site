@@ -4,60 +4,99 @@
    cart now persists across pages via localStorage.
    ========================================================================== */
 
+/* Product copy is taken VERBATIM from the live Square catalog behind
+   zellablends.com. If a description changes there, change it here too —
+   do not paraphrase. */
 const PRODUCTS = {
   earth: {
-    name: 'Earth Blend', series: 'Elemental Series', img: 'images/earth-blend.webp',
-    blend: 'Grounding Blend',
-    desc: 'Root into stillness. A grounding blend of vetiver, cedarwood, and moss agate for deep earthen steadiness. It settles a scattered day and returns you to the quiet pulse of the earth beneath your feet.',
-    sizes: [{ label: '5ml Roller', price: 39 }, { label: '10ml Roller', price: 49 }]
+    name: "Earth Blend", series: "Elemental Series", img: "images/earth-blend.webp",
+    blend: "Grounding Blend",
+    desc: "A grounding fusion of nature's finest essences. Immerse yourself in the rich, earthly scents of sandalwood, patchouli, cedarwood, and vanilla essential oils with the warm, clean base of amber carrier oil. This proprietary blend is meticulously crafted to evoke the stability and strength of the earth element, offering a serene and balanced aromatic experience. Perfect for those seeking grounding energy, meditation, or simply a moment of tranquility in the midst of life's whirlwind. Embrace the grounding power of nature with the Earth Blend.",
+    sizes: [{ label: "8ml Roller", price: 39 }, { label: "10ml Roller", price: 49 }]
   },
   water: {
-    name: 'Water Blend', series: 'Elemental Series', img: 'images/water-blend.webp',
-    blend: 'Flowing Blend',
-    desc: 'Surrender to flow. An intuitive blend of ylang ylang, blue lace agate, and moonstone for emotional clarity. Water washes away what no longer serves, opening channels for deeper feeling and authentic expression.',
-    sizes: [{ label: '5ml Roller', price: 39 }, { label: '10ml Roller', price: 49 }]
+    name: "Water Blend", series: "Elemental Series", img: "images/water-blend.webp",
+    blend: "Flowing Blend",
+    desc: "Dive into tranquility with Zella's Water Blend \u2013 a captivating fusion of soothing scents inspired by the fluidity of the water element. Immerse yourself in the gentle embrace of lotus, violet, sea salt, orange, bergamot, sandalwood, and coconut essential oils with the warm, clean base of amber carrier oil. This carefully curated blend is designed to evoke a sense of enlightenment, introspection, and emotional balance. Experience the serene and renewing essence of water. Transform your space into a peaceful aromatic oasis and let the waves of peace wash over you.",
+    sizes: [{ label: "8ml Roller", price: 39 }, { label: "10ml Roller", price: 49 }]
   },
   fire: {
-    name: 'Fire Blend', series: 'Elemental Series', img: 'images/fire-blend.webp',
-    blend: 'Igniting Blend',
-    desc: "Awaken your flame. A bold fusion of cinnamon, carnelian, and tiger's eye to stoke inner power and passion. Fire ignites your creative force and burns through the barriers that keep you small.",
-    sizes: [{ label: '5ml Roller', price: 39 }, { label: '10ml Roller', price: 49 }]
+    name: "Fire Blend", series: "Elemental Series", img: "images/fire-blend.webp",
+    blend: "Igniting Blend",
+    desc: "A spicy fusion of energizing scents that embody the passionate, joyful spirit of fire. Wrap yourself in the cozy aroma of cinnamon, bergamot, peppermint, all spice, and vibrant citrus essential oils with a warm, clean base of amber carrier oil. Ignite your senses and embrace your elemental power with this carefully crafted blend, designed to kindle passion and vitality.",
+    sizes: [{ label: "8ml Roller", price: 39 }, { label: "10ml Roller", price: 49 }]
   },
   air: {
-    name: 'Air Blend', series: 'Elemental Series', img: 'images/air-blend.webp',
-    blend: 'Liberating Blend',
-    desc: 'Breathe into expansion. An airy composition of eucalyptus, clear quartz, and angelite for mental clarity. Air lifts the fog of overthinking and opens the mind to new perspectives and possibility.',
-    sizes: [{ label: '5ml Roller', price: 39 }, { label: '10ml Roller', price: 49 }]
+    name: "Air Blend", series: "Elemental Series", img: "images/air-blend.webp",
+    blend: "Liberating Blend",
+    desc: "A breath of fresh air in every drop. Elevate your senses with this carefully crafted fusion of eucalyptus, lavender, violet, lemon, neroli, ylang ylang, and spearmint essential oils with a warm, clean base of amber carrier oil. Zella's proprietary blend captures the essence of the air element, creating an atmosphere of clarity, inspiration, and lightness. Perfect for moments of meditation, creative endeavors, or whenever you crave a revitalizing burst of freshness. Immerse yourself in the airy symphony of the Air Blend, and let the winds of positive energy carry you to new heights.",
+    sizes: [{ label: "8ml Roller", price: 39 }, { label: "10ml Roller", price: 49 }]
   },
-  'elemental-bundle': {
-    name: 'Elemental Series Bundle', series: 'Elemental Series', img: 'images/elemental-bundle.webp',
-    blend: 'The Complete Set',
-    desc: "All four elements, together. Earth, Water, Fire, and Air — the complete set, for anyone drawn to keeping a little balance across all of it. Priced kindly when you take the whole set home.",
-    sizes: [{ label: '5ml Set (4)', price: 119 }, { label: '10ml Set (4)', price: 149 }]
+  "elemental-bundle": {
+    name: "Elemental Series Bundle", series: "Elemental Series", img: "images/elemental-bundle.webp",
+    blend: "The Complete Set",
+    desc: "Indulge in the complete Elemental Series Bundle \u2013 a versatile collection perfect for any occasion.",
+    sizes: [{ label: "8ml Set (4)", price: 119 }, { label: "10ml Set (4)", price: 149 }]
   },
   signature: {
-    name: 'Zella Blend', series: 'Signature Series', img: 'images/signature-blend.webp',
-    blend: 'The Original Formula',
-    desc: 'The original formula. A harmony of 7+ carefully chosen stones and 12+ essential oils, made to turn a daily habit into something closer to a practice. This is where Zella began.',
-    sizes: [{ label: '5ml Roller', price: 39 }, { label: '10ml Roller', price: 49 }]
+    name: "Zella Blend", series: "Signature Series", img: "images/signature-blend.webp",
+    blend: "The Original Formula",
+    desc: "Introducing Zella's Signature Blend - a custom blend developed by and named after our founder herself! A harmonious oil blend crafted for the adventurous souls born under the sign of the Archer. Immerse yourself in the energetic fusion of uplifting citrus, peppermint, lavender, patchouli, basil essential oils with a warm, clean base of amber oil encapsulating the dynamic and optimistic nature of Sagittarius. The Zella Blend is designed to amplify the free-spirited essence of our beloved Sagittarians, promoting positivity, curiosity, and a sense of exploration. We invite you to embrace your divine energy and shoot for the stars with boundless enthusiasm. Adventure awaits with every drop.",
+    sizes: [{ label: "8ml Roller", price: 39 }, { label: "10ml Roller", price: 49 }]
   },
-  'signature-bundle': {
-    name: 'Zella Blend Bundle', series: 'Signature Series', img: 'images/signature-bundle.webp',
-    blend: 'Four Bottles',
-    desc: "Four bottles of the original Zella Blend — for those who've made it part of the daily round and would rather not be without. Share one with someone you love, or simply keep your ritual uninterrupted.",
-    sizes: [{ label: '5ml Set (4)', price: 119 }, { label: '10ml Set (4)', price: 149 }]
+  "signature-bundle": {
+    name: "Zella Blend Bundle", series: "Signature Series", img: "images/signature-bundle.webp",
+    blend: "Four Bottles",
+    desc: "Four bottles of the original Zella Blend \u2014 the Signature Series in a set.",
+    sizes: [{ label: "8ml Set (4)", price: 119 }, { label: "10ml Set (4)", price: 149 }]
   },
-  'body-oil': {
-    name: 'Body + Massage Oil', series: 'Body Oils', img: 'images/body-oil.webp',
-    blend: 'Nourish the Temple',
-    desc: "A luxurious, deeply nourishing body oil crafted to honor the vessel that carries you through this life. Blended with intention, infused with botanical oils that soften, restore, and awaken the skin's natural radiance. 2oz glass bottle.",
-    sizes: [{ label: '2oz Bottle', price: 29 }]
+  "body-oil": {
+    name: "Body + Massage Oil", series: "Body & Home", img: "images/body-oil.webp",
+    blend: "Nourish the Temple",
+    desc: "Nourish, hydrate, and protect your skin barrier with Zella's BODY + MASSAGE OIL. This luxurious blend of natural oils is hand-crafted with the finest ingredients, including jojoba oil, Vitamin E, coconut oil, olive oil, and argan oil.",
+    sizes: [{ label: "2oz Bottle", price: 29 }]
+  },
+  spray: {
+    name: "Zella Spray", series: "Body & Home", img: "",
+    blend: "Room \u00b7 Body \u00b7 Linen",
+    desc: "Experience a touch of luxury with Zella's refreshing Spray. Perfect as a refreshing room spray, body spray, or linen spray to accent your space.",
+    sizes: [{ label: "2oz Spray", price: 18 }]
+  },
+  diffuser: {
+    name: "Custom Diffuser Oil", series: "Body & Home", img: "",
+    blend: "Made to Order",
+    desc: "A custom diffuser oil, made to order in two sizes.",
+    sizes: [{ label: "Small", price: 29 }, { label: "Large", price: 39 }]
+  },
+  halloween: {
+    name: "Halloween Potion", series: "Seasonal", img: "images/halloween-potion.jpg",
+    blend: "Enchanted Potion",
+    desc: "This enchanted potion is a blend of woodsy and spicy oils to get you in the spooky Halloween spirit! Infused with patchouli, vanilla, agarwood, sandalwood, hinoki, clove, and cinnamon.",
+    sizes: [{ label: "8ml Roller", price: 18 }, { label: "10ml Roller", price: 23 }, { label: "2oz Spray", price: 18 }]
+  },
+  yuletide: {
+    name: "Yuletide Spice Spray", series: "Seasonal", img: "images/yuletide-spray.jpg",
+    blend: "Warm Spice",
+    desc: "Yuletide Spice Spray \u2014 a 2 oz room, body, and linen spray for the season.",
+    sizes: [{ label: "2oz Spray", price: 18 }]
+  },
+  "spiced-fir": {
+    name: "Spiced Fir Spray", series: "Seasonal", img: "images/spiced-fir-spray.jpg",
+    blend: "Evergreen & Spice",
+    desc: "Spiced Fir Spray \u2014 2 oz.",
+    sizes: [{ label: "2oz Spray", price: 18 }]
+  },
+  experience: {
+    name: "The Zella Experience", series: "Bespoke", img: "images/zella-experience.jpg",
+    blend: "In Person, By Appointment",
+    desc: "Reserve your time with Zella herself. She will guide you through a casual conversation and curate a custom 10 ml blend unique to Y O U in this time and space.",
+    sizes: [{ label: "The Experience", price: 100 }, { label: "Extended", price: 150 }]
   },
   bespoke: {
-    name: 'Bespoke Blend made specifically for you', series: 'Bespoke', img: 'images/signature-blend.webp',
-    blend: 'One of One',
-    desc: 'A one-of-one blend hand-composed for your intention. Stones and oils chosen from the answers you gave.',
-    sizes: [{ label: '10ml Roller', price: 89 }]
+    name: "Bespoke Blend made specifically for you", series: "Bespoke", img: "images/signature-blend.webp",
+    blend: "One of One",
+    desc: "A one-of-one blend hand-composed for your intention. Stones and oils chosen from the answers you gave.",
+    sizes: [{ label: "10ml Roller", price: 89 }]
   }
 };
 const BESPOKE_PRICE = 89;
@@ -161,7 +200,9 @@ function renderCart() {
     c.innerHTML = cart.map((item, i) => {
       const recipe = item.recipe ? `<div class="cart-recipe">For ${escapeHtml(item.recipe.recipientName || 'you')} · "${escapeHtml(item.recipe.blendName || '')}"<br>Stones: ${item.recipe.stones.map(s => escapeHtml(s.name)).join(', ')}<br>Oils: ${item.recipe.oils.map(o => escapeHtml(o.name)).join(', ')}</div>` : '';
       return `<div class="cart-item">
-        <img class="cart-item-img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}">
+        ${item.img
+          ? `<img class="cart-item-img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}">`
+          : `<div class="cart-item-img plate" style="margin:0;aspect-ratio:1/1;"><span class="sub">Zella</span></div>`}
         <div class="cart-item-info">
           <div class="cart-item-name">${escapeHtml(item.name)}</div>
           <div class="cart-item-meta">${escapeHtml(item.size)} · Qty ${item.qty}</div>

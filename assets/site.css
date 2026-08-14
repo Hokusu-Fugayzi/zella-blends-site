@@ -976,3 +976,166 @@ body.home .announce { flex: 0 0 auto; }
   .brandmark .sub { display: none; }
   .modal-img img { aspect-ratio: 4/3; }
 }
+
+/* ==========================================================================
+   SHOP — filter rail, load-stagger grid, typographic plates
+   Products are visible in the markup on load; JS only filters.
+   ========================================================================== */
+
+/* ---- Filter rail ------------------------------------------------------- */
+.shop-bar {
+  position: sticky; top: 0; z-index: 40;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: 0 var(--pad-x);
+}
+.shop-bar-inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; min-height: 62px;
+}
+.filter-rail {
+  display: flex; align-items: center; gap: 0;
+  overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+  margin: 0 -0.9rem;
+}
+.filter-rail::-webkit-scrollbar { display: none; }
+.filter-btn {
+  position: relative;
+  flex: 0 0 auto;
+  background: none; border: 0;
+  font-family: var(--label);
+  font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 1.15rem 0.9rem;
+  transition: color .35s ease;
+  white-space: nowrap;
+}
+.filter-btn::after {
+  content: ''; position: absolute;
+  left: 0.9rem; right: 0.9rem; bottom: 0.85rem; height: 1px;
+  background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .45s cubic-bezier(.16,.7,.3,1);
+}
+.filter-btn:hover { color: var(--ink-2); }
+.filter-btn:hover::after { transform: scaleX(1); }
+.filter-btn[aria-pressed="true"] { color: var(--ink); }
+.filter-btn[aria-pressed="true"]::after { transform: scaleX(1); }
+.filter-btn .n {
+  font-size: 0.52rem; vertical-align: super;
+  margin-left: 0.35em; color: var(--ink-mute);
+}
+.filter-count {
+  flex: 0 0 auto;
+  font-family: var(--label); font-size: 0.62rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute);
+}
+
+/* ---- Grid: staggered entrance on load (no scroll gate) ----------------- */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.shop-grid { border-top: 0; }
+.shop-grid .product-card {
+  opacity: 0;
+  animation: cardIn .75s cubic-bezier(.16,.7,.3,1) forwards;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+.shop-grid .product-card.is-hidden { display: none; }
+/* Re-stagger after a filter change */
+.shop-grid.refiltering .product-card:not(.is-hidden) {
+  animation: cardIn .55s cubic-bezier(.16,.7,.3,1) forwards;
+}
+
+/* ---- Card additions ---------------------------------------------------- */
+.product-card .notes {
+  font-family: var(--label);
+  font-size: 0.6rem; letter-spacing: 0.1em;
+  color: var(--ink-mute); line-height: 1.75;
+  margin-bottom: 1.1rem;
+  text-transform: lowercase;
+}
+.product-card .badge {
+  position: absolute; top: 0; left: 0; z-index: 2;
+  font-family: var(--label); font-size: 0.53rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  background: var(--ink); color: var(--paper);
+  padding: 0.32rem 0.6rem;
+}
+.product-card .img-wrap { position: relative; }
+
+/* ---- Typographic plate (products with no photograph) ------------------- */
+.plate {
+  aspect-ratio: 1/1; margin-bottom: 1.8rem;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--paper-2) 0%, var(--paper) 62%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.7rem;
+  padding: 1.5rem; text-align: center;
+  position: relative; overflow: hidden;
+  transition: background .5s ease;
+}
+.plate::before,
+.plate::after {
+  content: ''; position: absolute; left: 18%; right: 18%; height: 1px;
+  background: var(--line-soft);
+}
+.plate::before { top: 16%; }
+.plate::after  { bottom: 16%; }
+.plate .mark {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  line-height: 1.1; color: var(--ink-2);
+}
+.plate .sub {
+  font-family: var(--label); font-size: 0.55rem;
+  letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink-mute);
+}
+.product-card:hover .plate { background: var(--paper-2); }
+
+/* ---- Empty state ------------------------------------------------------- */
+.shop-empty {
+  padding: clamp(3rem, 8vw, 6rem) var(--pad-x);
+  text-align: center; border: 1px solid var(--line); border-top: 0;
+}
+.shop-empty .mark {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.6rem; color: var(--ink-2); margin-bottom: 0.6rem;
+}
+.shop-empty p { color: var(--ink-soft); font-size: 0.9rem; }
+
+@media (max-width: 900px) {
+  .shop-bar-inner { min-height: 56px; gap: 1rem; }
+  .filter-count { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shop-grid .product-card { animation: none; opacity: 1; }
+  .filter-btn::after { transition: none; }
+}
+
+/* Grid lines must not depend on the gap showing the container background —
+   with a filter applied, unfilled tracks in the last row would render as
+   grey ghost cells. Draw the rules on the cards instead. */
+.shop-grid {
+  background: var(--paper);
+  gap: 0;
+}
+.shop-grid .product-card {
+  box-shadow: inset -1px 0 0 var(--line), inset 0 -1px 0 var(--line);
+}
+
+/* Plate standing in for a product photograph on the detail page: it must
+   fill the media column, not shrink to its own text. */
+.pdp-media .plate {
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: 100%;
+  aspect-ratio: auto;
+  min-height: 60vh;
+  margin: 0;
+  border: 0;
+}
+.pdp-media .plate .mark { font-size: clamp(2rem, 4vw, 3.2rem); }

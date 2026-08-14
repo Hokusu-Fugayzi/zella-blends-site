@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop All Blends — Zella Blends</title>
-  <meta name="description" content="Every blend in the Zella library — elemental, signature, body, and bespoke.">
+  <meta name="description" content="Every blend in the Zella library — elemental, signature, body and home, seasonal, and one composed for you alone.">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,63 +43,181 @@
   <section class="page-hero">
     <span class="eyebrow">The Library</span>
     <h1 class="display">All Blends</h1>
-    <p>Every blend in the Zella library — elemental, signature, body, and one composed for you alone. Made for beauty, for wellness, for body, soul, and spirit.</p>
+    <p>Every blend in the Zella library — elemental, signature, body and home, seasonal, and one composed for you alone. Made for beauty, for wellness, for body, soul, and spirit.</p>
   </section>
 
-  <section class="section">
+  <div class="shop-bar">
+    <div class="shop-bar-inner">
+      <div class="filter-rail" role="group" aria-label="Filter blends by series">
+        <button class="filter-btn" data-filter="all"        aria-pressed="true">All<span class="n">15</span></button>
+        <button class="filter-btn" data-filter="elemental"  aria-pressed="false">Elemental<span class="n">5</span></button>
+        <button class="filter-btn" data-filter="signature"  aria-pressed="false">Signature<span class="n">2</span></button>
+        <button class="filter-btn" data-filter="body"       aria-pressed="false">Body &amp; Home<span class="n">3</span></button>
+        <button class="filter-btn" data-filter="seasonal"   aria-pressed="false">Seasonal<span class="n">3</span></button>
+        <button class="filter-btn" data-filter="bespoke"    aria-pressed="false">Bespoke<span class="n">2</span></button>
+      </div>
+      <div class="filter-count" id="filter-count">Showing all 15</div>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:clamp(2rem,4vw,3.5rem);">
     <div class="wrap">
-      <div class="product-grid reveal">
-        <a class="product-card" href="product.html?id=earth">
-          <div class="img-wrap"><img src="images/earth-blend.webp" alt="Earth Blend"></div>
+      <div class="product-grid shop-grid" id="shop-grid">
+
+        <!-- ELEMENTAL ------------------------------------------------------ -->
+        <a class="product-card" href="product.html?id=earth" data-series="elemental" style="--i:0">
+          <div class="img-wrap"><img src="images/earth-blend.webp" alt="Earth Blend" loading="lazy"></div>
           <div class="series">Elemental Series</div><div class="name">Earth</div>
-          <div class="desc">Grounding blend — vetiver, cedarwood, moss agate.</div>
+          <div class="desc">A grounding fusion of nature&rsquo;s finest essences.</div>
+          <div class="notes">sandalwood · patchouli · cedarwood · vanilla</div>
           <div class="price">$39 – $49</div><span class="card-cta">View</span>
         </a>
-        <a class="product-card" href="product.html?id=water">
-          <div class="img-wrap"><img src="images/water-blend.webp" alt="Water Blend"></div>
+
+        <a class="product-card" href="product.html?id=water" data-series="elemental" style="--i:1">
+          <div class="img-wrap"><img src="images/water-blend.webp" alt="Water Blend" loading="lazy"></div>
           <div class="series">Elemental Series</div><div class="name">Water</div>
-          <div class="desc">Flowing blend — ylang ylang, blue lace agate, moonstone.</div>
+          <div class="desc">A captivating fusion of soothing scents inspired by the fluidity of the water element.</div>
+          <div class="notes">lotus · violet · sea salt · orange · bergamot · coconut</div>
           <div class="price">$39 – $49</div><span class="card-cta">View</span>
         </a>
-        <a class="product-card" href="product.html?id=fire">
-          <div class="img-wrap"><img src="images/fire-blend.webp" alt="Fire Blend"></div>
+
+        <a class="product-card" href="product.html?id=fire" data-series="elemental" style="--i:2">
+          <div class="img-wrap"><img src="images/fire-blend.webp" alt="Fire Blend" loading="lazy"></div>
           <div class="series">Elemental Series</div><div class="name">Fire</div>
-          <div class="desc">Igniting blend — cinnamon, carnelian, tiger's eye.</div>
+          <div class="desc">A spicy fusion of energizing scents that embody the passionate, joyful spirit of fire.</div>
+          <div class="notes">cinnamon · bergamot · peppermint · allspice · citrus</div>
           <div class="price">$39 – $49</div><span class="card-cta">View</span>
         </a>
-        <a class="product-card" href="product.html?id=air">
-          <div class="img-wrap"><img src="images/air-blend.webp" alt="Air Blend"></div>
+
+        <a class="product-card" href="product.html?id=air" data-series="elemental" style="--i:3">
+          <div class="img-wrap"><img src="images/air-blend.webp" alt="Air Blend" loading="lazy"></div>
           <div class="series">Elemental Series</div><div class="name">Air</div>
-          <div class="desc">Liberating blend — eucalyptus, clear quartz, angelite.</div>
+          <div class="desc">A breath of fresh air in every drop.</div>
+          <div class="notes">eucalyptus · lavender · violet · lemon · neroli · spearmint</div>
           <div class="price">$39 – $49</div><span class="card-cta">View</span>
         </a>
-        <a class="product-card" href="product.html?id=signature">
-          <div class="img-wrap"><img src="images/signature-blend.webp" alt="Zella Blend"></div>
-          <div class="series">Signature Series</div><div class="name">Zella Blend</div>
-          <div class="desc">The original formula — 7+ crystals, 12+ oils.</div>
-          <div class="price">$39 – $49</div><span class="card-cta">View</span>
-        </a>
-        <a class="product-card" href="product.html?id=elemental-bundle">
-          <div class="img-wrap"><img src="images/elemental-bundle.webp" alt="Elemental Series Bundle"></div>
+
+        <a class="product-card" href="product.html?id=elemental-bundle" data-series="elemental" style="--i:4">
+          <div class="img-wrap"><img src="images/elemental-bundle.webp" alt="Elemental Series Bundle" loading="lazy"></div>
           <div class="series">Elemental Series</div><div class="name">Elemental Bundle</div>
-          <div class="desc">All four elements, together.</div>
+          <div class="desc">Indulge in the complete Elemental Series Bundle &ndash; a versatile collection perfect for any occasion.</div>
+          <div class="notes">earth · water · fire · air</div>
           <div class="price">$119 – $149</div><span class="card-cta">View</span>
         </a>
-        <a class="product-card" href="product.html?id=signature-bundle">
-          <div class="img-wrap"><img src="images/signature-bundle.webp" alt="Zella Blend Bundle"></div>
+
+        <!-- SIGNATURE ------------------------------------------------------ -->
+        <a class="product-card" href="product.html?id=signature" data-series="signature" style="--i:5">
+          <div class="img-wrap">
+            <span class="badge">The Original</span>
+            <img src="images/signature-blend.webp" alt="Zella Blend" loading="lazy">
+          </div>
+          <div class="series">Signature Series</div><div class="name">Zella Blend</div>
+          <div class="desc">A custom blend developed by and named after our founder herself.</div>
+          <div class="notes">citrus · peppermint · lavender · patchouli · basil</div>
+          <div class="price">$39 – $49</div><span class="card-cta">View</span>
+        </a>
+
+        <a class="product-card" href="product.html?id=signature-bundle" data-series="signature" style="--i:6">
+          <div class="img-wrap"><img src="images/signature-bundle.webp" alt="Zella Blend Bundle" loading="lazy"></div>
           <div class="series">Signature Series</div><div class="name">Signature Bundle</div>
           <div class="desc">Four bottles of the original Zella Blend.</div>
+          <div class="notes">four bottles · one blend</div>
           <div class="price">$119 – $149</div><span class="card-cta">View</span>
         </a>
-        <a class="product-card" href="product.html?id=body-oil">
-          <div class="img-wrap"><img src="images/body-oil.webp" alt="Body and Massage Oil"></div>
-          <div class="series">Body Oils</div><div class="name">Body + Massage Oil</div>
-          <div class="desc">Nourishing botanical oil for skin and spirit.</div>
+
+        <!-- BODY & HOME ---------------------------------------------------- -->
+        <a class="product-card" href="product.html?id=body-oil" data-series="body" style="--i:7">
+          <div class="img-wrap"><img src="images/body-oil.webp" alt="Body and Massage Oil" loading="lazy"></div>
+          <div class="series">Body &amp; Home</div><div class="name">Body + Massage Oil</div>
+          <div class="desc">Nourish, hydrate, and protect your skin barrier.</div>
+          <div class="notes">jojoba · vitamin e · coconut · olive · argan</div>
           <div class="price">$29</div><span class="card-cta">View</span>
         </a>
+
+        <a class="product-card" href="product.html?id=spray" data-series="body" style="--i:8">
+          <div class="plate">
+            <span class="mark">Spray</span>
+            <span class="sub">Room · Body · Linen</span>
+          </div>
+          <div class="series">Body &amp; Home</div><div class="name">Zella Spray</div>
+          <div class="desc">Experience a touch of luxury with Zella&rsquo;s refreshing Spray.</div>
+          <div class="notes">2 oz · your choice of blend</div>
+          <div class="price">$18</div><span class="card-cta">View</span>
+        </a>
+
+        <a class="product-card" href="product.html?id=diffuser" data-series="body" style="--i:9">
+          <div class="plate">
+            <span class="mark">Diffuser</span>
+            <span class="sub">Custom · Small &amp; Large</span>
+          </div>
+          <div class="series">Body &amp; Home</div><div class="name">Custom Diffuser Oil</div>
+          <div class="desc">A custom diffuser oil, made to order in two sizes.</div>
+          <div class="notes">small or large · made to order</div>
+          <div class="price">$29 – $39</div><span class="card-cta">View</span>
+        </a>
+
+        <!-- SEASONAL ------------------------------------------------------- -->
+        <a class="product-card" href="product.html?id=halloween" data-series="seasonal" style="--i:10">
+          <div class="img-wrap">
+            <span class="badge">Seasonal</span>
+            <img src="images/halloween-potion.jpg" alt="Halloween Potion" loading="lazy">
+          </div>
+          <div class="series">Seasonal</div><div class="name">Halloween Potion</div>
+          <div class="desc">An enchanted blend of woodsy and spicy oils to get you in the spooky Halloween spirit.</div>
+          <div class="notes">patchouli · vanilla · agarwood · hinoki · clove · cinnamon</div>
+          <div class="price">$18 – $23</div><span class="card-cta">View</span>
+        </a>
+
+        <a class="product-card" href="product.html?id=yuletide" data-series="seasonal" style="--i:11">
+          <div class="img-wrap">
+            <span class="badge">Seasonal</span>
+            <img src="images/yuletide-spray.jpg" alt="Yuletide Spice Spray" loading="lazy">
+          </div>
+          <div class="series">Seasonal</div><div class="name">Yuletide Spice Spray</div>
+          <div class="desc">Warm spice for the darkest, brightest weeks of the year.</div>
+          <div class="notes">2 oz spray</div>
+          <div class="price">$18</div><span class="card-cta">View</span>
+        </a>
+
+        <a class="product-card" href="product.html?id=spiced-fir" data-series="seasonal" style="--i:12">
+          <div class="img-wrap">
+            <span class="badge">Seasonal</span>
+            <img src="images/spiced-fir-spray.jpg" alt="Spiced Fir Spray" loading="lazy">
+          </div>
+          <div class="series">Seasonal</div><div class="name">Spiced Fir Spray</div>
+          <div class="desc">Evergreen and spice — the smell of a room made ready.</div>
+          <div class="notes">2 oz spray</div>
+          <div class="price">$18</div><span class="card-cta">View</span>
+        </a>
+
+        <!-- BESPOKE -------------------------------------------------------- -->
+        <a class="product-card" href="bespoke.html" data-series="bespoke" style="--i:13">
+          <div class="plate">
+            <span class="mark">One of one</span>
+            <span class="sub">Composed for you</span>
+          </div>
+          <div class="series">Bespoke</div><div class="name">Bespoke Blend</div>
+          <div class="desc">Answer a handful of gentle questions and Tab will compose a blend for you alone.</div>
+          <div class="notes">10 ml · no two alike</div>
+          <div class="price">$89</div><span class="card-cta">Begin the asking</span>
+        </a>
+
+        <a class="product-card" href="product.html?id=experience" data-series="bespoke" style="--i:14">
+          <div class="img-wrap"><img src="images/zella-experience.jpg" alt="The Zella Experience" loading="lazy"></div>
+          <div class="series">Bespoke</div><div class="name">The Zella Experience</div>
+          <div class="desc">Reserve your time with Zella herself &mdash; a casual conversation, and a custom 10&nbsp;ml blend.</div>
+          <div class="notes">in person · by appointment</div>
+          <div class="price">$100 – $150</div><span class="card-cta">View</span>
+        </a>
+
       </div>
 
-      <div style="margin-top:5rem;border:1px solid var(--ink);padding:clamp(2.5rem,6vw,5rem);text-align:center;" class="reveal">
+      <div class="shop-empty" id="shop-empty" hidden>
+        <div class="mark">Nothing here yet</div>
+        <p>That corner of the library is still being filled. Try another series.</p>
+      </div>
+
+      <div style="margin-top:5rem;border:1px solid var(--ink);padding:clamp(2.5rem,6vw,5rem);text-align:center;">
         <span class="eyebrow" style="display:block;margin-bottom:1.4rem;">Made for You Alone</span>
         <h2 style="font-family:var(--display);font-weight:300;font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:1.2rem;">The Bespoke Blend</h2>
         <p style="color:var(--ink-soft);max-width:38rem;margin:0 auto 2.2rem;">Answer a handful of gentle questions and Tab will compose a one-of-one blend from Zella's full library of stones and oils.</p>
@@ -157,5 +275,6 @@
 
   <div class="toast" id="toast"></div>
   <script src="assets/site.js"></script>
+  <script src="assets/shop.js"></script>
 </body>
 </html>

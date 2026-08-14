@@ -149,8 +149,18 @@
       let sizeIdx = 0, quantity = 1;
 
       document.title = p.name + ' — Zella Blends';
-      document.getElementById('p-img').src = p.img;
-      document.getElementById('p-img').alt = p.name;
+      // Products without a photograph get a typographic plate instead of a
+      // broken <img>. Same treatment as the shop grid.
+      if (p.img) {
+        document.getElementById('p-img').src = p.img;
+        document.getElementById('p-img').alt = p.name;
+      } else {
+        const media = document.querySelector('.pdp-media');
+        media.innerHTML =
+          '<div class="plate"><span class="mark"></span><span class="sub"></span></div>';
+        media.querySelector('.mark').textContent = p.name;
+        media.querySelector('.sub').textContent = p.blend || '';
+      }
       document.getElementById('p-crumb').textContent = p.name;
       document.getElementById('p-series').textContent = p.series;
       document.getElementById('p-name').textContent = p.name;
