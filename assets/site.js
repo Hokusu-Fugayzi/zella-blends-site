@@ -8,7 +8,7 @@ const PRODUCTS = {
   earth: {
     name: 'Earth Blend', series: 'Elemental Series', img: 'images/earth-blend.webp',
     blend: 'Grounding Blend',
-    desc: 'Root into stillness. A grounding alchemy of vetiver, cedarwood, and moss agate for deep earthen stability. This blend anchors scattered energy and reconnects you to the steady pulse of the earth beneath your feet.',
+    desc: 'Root into stillness. A grounding blend of vetiver, cedarwood, and moss agate for deep earthen steadiness. It settles a scattered day and returns you to the quiet pulse of the earth beneath your feet.',
     sizes: [{ label: '5ml Roller', price: 39 }, { label: '10ml Roller', price: 49 }]
   },
   water: {
@@ -32,19 +32,19 @@ const PRODUCTS = {
   'elemental-bundle': {
     name: 'Elemental Series Bundle', series: 'Elemental Series', img: 'images/elemental-bundle.webp',
     blend: 'The Complete Set',
-    desc: "All four elements united in one sacred collection. Earth, Water, Fire, and Air — the complete set for those who seek balance across every dimension. Save when you embrace the full spectrum of nature's forces.",
+    desc: "All four elements, together. Earth, Water, Fire, and Air — the complete set, for anyone drawn to keeping a little balance across all of it. Priced kindly when you take the whole set home.",
     sizes: [{ label: '5ml Set (4)', price: 119 }, { label: '10ml Set (4)', price: 149 }]
   },
   signature: {
     name: 'Zella Blend', series: 'Signature Series', img: 'images/signature-blend.webp',
     blend: 'The Original Formula',
-    desc: 'The original alchemical formula. A harmonious marriage of 7+ carefully selected crystals and 12+ essential oils, designed to elevate your daily ritual into a sacred practice. This is where the Zella journey began.',
+    desc: 'The original formula. A harmony of 7+ carefully chosen stones and 12+ essential oils, made to turn a daily habit into something closer to a practice. This is where Zella began.',
     sizes: [{ label: '5ml Roller', price: 39 }, { label: '10ml Roller', price: 49 }]
   },
   'signature-bundle': {
     name: 'Zella Blend Bundle', series: 'Signature Series', img: 'images/signature-bundle.webp',
     blend: 'Four Bottles',
-    desc: "Four bottles of the original Zella Blend — for those who've made it part of their daily practice and never want to be without. Share the magic with someone you love, or keep your ritual uninterrupted.",
+    desc: "Four bottles of the original Zella Blend — for those who've made it part of the daily round and would rather not be without. Share one with someone you love, or simply keep your ritual uninterrupted.",
     sizes: [{ label: '5ml Set (4)', price: 119 }, { label: '10ml Set (4)', price: 149 }]
   },
   'body-oil': {
@@ -56,7 +56,7 @@ const PRODUCTS = {
   bespoke: {
     name: 'Bespoke Blend made specifically for you', series: 'Bespoke', img: 'images/signature-blend.webp',
     blend: 'One of One',
-    desc: 'A one-of-one alchemical blend hand-composed for your intention. Ingredients chosen during your divination ritual.',
+    desc: 'A one-of-one blend hand-composed for your intention. Stones and oils chosen from the answers you gave.',
     sizes: [{ label: '10ml Roller', price: 89 }]
   }
 };
@@ -156,7 +156,7 @@ function renderCart() {
   const c = document.getElementById('cart-items');
   if (!c) return;
   if (cart.length === 0) {
-    c.innerHTML = '<div class="cart-empty">Your ritual awaits<br><br>Add sacred blends to begin</div>';
+    c.innerHTML = '<div class="cart-empty">Your ritual awaits<br><br>Add a blend to begin</div>';
   } else {
     c.innerHTML = cart.map((item, i) => {
       const recipe = item.recipe ? `<div class="cart-recipe">For ${escapeHtml(item.recipe.recipientName || 'you')} · "${escapeHtml(item.recipe.blendName || '')}"<br>Stones: ${item.recipe.stones.map(s => escapeHtml(s.name)).join(', ')}<br>Oils: ${item.recipe.oils.map(o => escapeHtml(o.name)).join(', ')}</div>` : '';

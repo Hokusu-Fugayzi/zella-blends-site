@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ZELLA BLENDS — Bespoke divination wizard
+   ZELLA BLENDS — Bespoke blend wizard
    Logic preserved from the original build; restyled to the new system.
    ========================================================================== */
 
@@ -26,8 +26,8 @@ const wizardSteps = [
     render: () => `
       <div class="wizard-step active" style="text-align:center;">
         <p class="wizard-eyebrow">An Invitation</p>
-        <h3 class="wizard-question">Let us divine a blend <em>made for you alone</em></h3>
-        <p class="wizard-helper">A handful of questions about who you are and what you're calling in. The alchemist will compose a one-of-one blend from Zella's library of stones and sacred oils.</p>
+        <h3 class="wizard-question">Let's compose a blend <em>made for you alone</em></h3>
+        <p class="wizard-helper">A handful of gentle questions about who you are and what you're calling in. Tab will compose a one-of-one blend from Zella's library of stones and sacred oils.</p>
         <div style="text-align:center;margin-top:1.5rem;">
           <button class="wizard-next" onclick="wizardNext()">Begin</button>
         </div>
@@ -36,7 +36,7 @@ const wizardSteps = [
   {
     id: 'birth', eyebrow: 'Birth',
     question: 'When did you <em>arrive</em>?',
-    helper: 'The cosmos was holding a particular weather the day you were born. The alchemist will listen to it.',
+    helper: 'The sky was holding a particular weather the day you arrived. Tab will listen to it.',
     render(ctx) {
       return `
         <div class="wizard-field">
@@ -80,7 +80,7 @@ const wizardSteps = [
     type: 'options', key: 'essence',
     options: [
       { value: 'seeker', title: 'The Seeker', desc: 'Curious, restless, in pursuit of meaning.' },
-      { value: 'sovereign', title: 'The Sovereign', desc: 'Self-led, decisive, holding your own throne.' },
+      { value: 'sovereign', title: 'The Sovereign', desc: 'Self-led, steady, sure of your own ground.' },
       { value: 'healer', title: 'The Healer', desc: 'Tender, nurturing, attuned to others and the unseen.' },
       { value: 'wild', title: 'The Wild One', desc: 'Untamed, sensual, alive in your body.' },
       { value: 'mystic', title: 'The Mystic', desc: 'Intuitive, dreamy, of two worlds at once.' },
@@ -148,7 +148,7 @@ const wizardSteps = [
   {
     id: 'scent', eyebrow: 'Scent',
     question: 'Your nose leans toward...',
-    helper: "There's no wrong path — the alchemist will weave around you.",
+    helper: "There's no wrong path — Tab will weave around you.",
     type: 'options', key: 'scent',
     options: [
       { value: 'earthy', title: 'Earthy + Grounding', desc: 'Vetiver, oakmoss, sandalwood, patchouli.' },
@@ -156,7 +156,7 @@ const wizardSteps = [
       { value: 'floral', title: 'Floral + Soft', desc: 'Rose, jasmine, ylang ylang, geranium.' },
       { value: 'smoky', title: 'Smoky + Resinous', desc: 'Frankincense, myrrh, palo santo, cedar.' },
       { value: 'herbal', title: 'Herbal + Green', desc: 'Clary sage, rosemary, lavender, eucalyptus.' },
-      { value: 'trust', title: 'Let the Alchemist Choose', desc: 'I trust the divination.' }
+      { value: 'trust', title: 'Let the Apothecary Choose', desc: 'I trust the hands that make it.' }
     ]
   },
   {
@@ -255,7 +255,7 @@ function renderWizard() {
       ${errorHtml}
       <div class="wizard-nav">
         <button class="wizard-back" onclick="wizardBack()" ${wizardCtx.step <= 1 ? 'disabled' : ''}>&larr; Back</button>
-        <button class="wizard-next" onclick="wizardNext()" ${canAdvance ? '' : 'disabled'}>${isLast ? 'Divine My Blend' : 'Continue'}</button>
+        <button class="wizard-next" onclick="wizardNext()" ${canAdvance ? '' : 'disabled'}>${isLast ? 'Compose My Blend' : 'Continue'}</button>
       </div>
     </div>`;
 }
@@ -314,13 +314,13 @@ async function submitWizard() {
     });
     if (!res.ok) {
       const txt = await res.text();
-      throw new Error(`The alchemist is unreachable (${res.status}). ${txt.slice(0, 140)}`);
+      throw new Error(`The apothecary is unreachable (${res.status}). ${txt.slice(0, 140)}`);
     }
     const data = await res.json();
-    if (!data || !data.blendName) throw new Error('The divination came back empty. Please try again.');
+    if (!data || !data.blendName) throw new Error('The blend came back empty. Please try again.');
     wizardCtx.result = data;
   } catch (e) {
-    wizardCtx.error = e.message || 'Something interrupted the divination.';
+    wizardCtx.error = e.message || 'Something interrupted the composing.';
     wizardCtx.loading = false;
     renderWizard();
     return;
