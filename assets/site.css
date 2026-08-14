@@ -244,7 +244,36 @@ body.home .announce { flex: 0 0 auto; }
   color: var(--paper);
   display: flex; flex-direction: column;
   height: 100%;
+  position: relative;
+  padding: clamp(0.95rem, 1.7vw, 1.4rem);
+  background: rgba(33, 26, 19, 0.22);
+  border: 1px solid transparent;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  /* The darkening arrives quickly so the copy is readable the moment the
+     pointer lands; the lift is slower and does the flourish. */
+  transition:
+    background .22s ease,
+    border-color .22s ease,
+    backdrop-filter .22s ease,
+    transform .5s cubic-bezier(.16,.7,.3,1);
 }
+/* Hovering one panel darkens it enough to read comfortably over the video,
+   and lifts it clear of its neighbours. */
+.door-entry:hover {
+  background: rgba(33, 26, 19, 0.86);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  border-color: rgba(247, 241, 232, 0.34);
+  transform: translateY(-5px) scale(1.035);
+  z-index: 2;
+}
+/* The shop is the primary door — it carries an outline at rest. */
+.door-entry.featured {
+  background: rgba(33, 26, 19, 0.42);
+  border-color: rgba(247, 241, 232, 0.5);
+}
+.door-entry.featured:hover { border-color: rgba(247, 241, 232, 0.8); }
 /* Push every "more" link to a shared baseline regardless of copy length. */
 .door-entry .d { flex: 1 1 auto; }
 .door-entry .more { align-self: flex-start; }
@@ -1422,4 +1451,8 @@ body.home .announce { flex: 0 0 auto; }
   background: var(--ink); color: var(--paper);
   padding: 0.16rem 0.45rem; margin-left: 0.5rem;
   vertical-align: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door-entry, .door-entry:hover { transform: none; }
 }
