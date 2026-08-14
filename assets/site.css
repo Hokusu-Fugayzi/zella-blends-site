@@ -226,7 +226,9 @@ body.home .announce { flex: 0 0 auto; }
   display: grid;
   grid-template-columns: minmax(0, 30rem) auto;
   justify-content: space-between;
-  align-items: end;
+  /* Sits at the top of the hero, level with the eyebrow — not floating
+     halfway down the frame. */
+  align-items: start;
   gap: clamp(1.5rem, 5vw, 4rem);
 }
 .lede-text { max-width: 30rem; }
