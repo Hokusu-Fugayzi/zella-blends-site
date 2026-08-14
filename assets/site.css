@@ -221,10 +221,43 @@ body.home .announce { flex: 0 0 auto; }
 }
 .door-lede {
   color: var(--paper);
-  max-width: 30rem;
   margin-bottom: auto;
   padding-top: clamp(2.5rem, 7vw, 5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 30rem) auto;
+  justify-content: space-between;
+  align-items: end;
+  gap: clamp(1.5rem, 5vw, 4rem);
 }
+.lede-text { max-width: 30rem; }
+
+/* The single primary action on the page. Solid cream so it reads as a
+   button against the video, where everything else is a hairline. */
+.hero-cta {
+  display: inline-flex; flex-direction: column;
+  align-items: center; gap: 0.4rem;
+  background: var(--paper); color: var(--ink);
+  border: 1px solid var(--paper);
+  padding: clamp(1.05rem, 1.9vw, 1.5rem) clamp(1.9rem, 3.6vw, 3.1rem);
+  text-align: center;
+  transition: background .35s ease, color .35s ease, transform .4s cubic-bezier(.16,.7,.3,1);
+}
+.hero-cta .t {
+  font-family: var(--label);
+  font-size: clamp(0.74rem, 1vw, 0.88rem);
+  letter-spacing: 0.26em; text-transform: uppercase;
+}
+.hero-cta .s {
+  font-family: var(--label); font-size: 0.58rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color .35s ease;
+}
+.hero-cta:hover {
+  background: transparent; color: var(--paper);
+  transform: translateY(-3px);
+}
+.hero-cta:hover .s { color: rgba(247, 241, 232, 0.75); }
 .door-lede .eyebrow { color: rgba(247,241,232,0.85); }
 .door-lede h1 {
   font-family: var(--display); font-weight: 300;
@@ -1455,4 +1488,15 @@ body.home .announce { flex: 0 0 auto; }
 
 @media (prefers-reduced-motion: reduce) {
   .door-entry, .door-entry:hover { transform: none; }
+}
+
+@media (max-width: 860px) {
+  /* Stack under the headline rather than shrinking it off the edge. */
+  .door-lede {
+    grid-template-columns: 1fr;
+    justify-content: start;
+    align-items: start;
+    gap: 1.6rem;
+  }
+  .hero-cta { align-self: start; }
 }
