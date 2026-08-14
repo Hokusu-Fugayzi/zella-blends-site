@@ -26,7 +26,7 @@
       <img class="brand-logo" src="images/logo-mono-ink.png" alt="Zella Blends">
     </a>
     <div class="nav-right">
-      <a href="bespoke.html" class="nav-link bag-link-extra">Bespoke</a>
+      <a href="create.html" class="nav-link bag-link-extra">Create</a>
       <button class="bag-btn" onclick="openCart()">Bag&nbsp;<span data-cart-count>(0)</span></button>
       <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileNav(true)"><span></span><span></span><span></span></button>
     </div>
@@ -37,7 +37,7 @@
     <a href="products.html">Shop</a>
     <a href="circle.html">The Circle</a>
     <a href="ritual.html">Ritual</a>
-    <a href="bespoke.html">Bespoke</a>
+    <a href="create.html">Create</a>
     <a href="story.html">Story</a>
     <a href="#" onclick="event.preventDefault();toggleMobileNav(false);openCart()">Bag</a>
   </nav>
@@ -54,6 +54,26 @@
       <div id="p-sizes-wrap">
         <div class="size-label">Size</div>
         <div class="size-options" id="p-sizes"></div>
+      </div>
+
+      <div id="p-mode-wrap">
+        <div class="size-label">How often</div>
+        <div class="buy-mode" id="p-mode">
+          <label class="mode selected" data-mode="once">
+            <span class="dot"></span>
+            <span class="mode-label">One time
+              <span class="mode-note">A single bottle, whenever you like.</span>
+            </span>
+            <span class="mode-price" id="p-price-once"></span>
+          </label>
+          <label class="mode" data-mode="sub">
+            <span class="dot"></span>
+            <span class="mode-label">Every month<span class="save">Save 10%</span>
+              <span class="mode-note">Delivered monthly · cancel anytime</span>
+            </span>
+            <span class="mode-price" id="p-price-sub"></span>
+          </label>
+        </div>
       </div>
 
       <div class="qty-label">Quantity</div>
@@ -88,7 +108,7 @@
       </div>
       <div class="tile-grid reveal">
         <a class="tile" href="products.html"><div><h3>All Blends</h3><p>The full Zella library.</p></div><span class="arrow">&rarr;</span></a>
-        <a class="tile" href="bespoke.html"><div><h3>Bespoke Blend</h3><p>One composed for you alone.</p></div><span class="arrow">&rarr;</span></a>
+        <a class="tile" href="create.html"><div><h3>Custom Blend</h3><p>One composed for you alone.</p></div><span class="arrow">&rarr;</span></a>
         <a class="tile" href="ritual.html"><div><h3>The Ritual</h3><p>How to wear your blend.</p></div><span class="arrow">&rarr;</span></a>
       </div>
     </div>
@@ -106,7 +126,7 @@
         <a href="circle.html">The Circle</a>
         <a href="product.html?id=signature">Signature</a>
         <a href="product.html?id=body-oil">Body Oils</a>
-        <a href="bespoke.html">Bespoke</a>
+        <a href="create.html">Create</a>
       </div>
       <div class="footer-col">
         <h4>About</h4>
@@ -172,9 +192,37 @@
       document.getElementById('ap-series').textContent = p.series;
 
       const sizesWrap = document.getElementById('p-sizes');
+
+      // Recurring purchases only make sense for things that get used up.
+      // The Zella Experience is an appointment; bespoke is a one-off.
+      const canSubscribe = !['experience', 'bespoke', 'circle'].includes(id);
+      let mode = 'once';
+      document.getElementById('p-mode-wrap').style.display = canSubscribe ? 'block' : 'none';
+
       function paintPrice() {
-        document.getElementById('p-price').textContent = '$' + p.sizes[sizeIdx].price.toFixed(2);
+        const base = p.sizes[sizeIdx].price;
+        const sub = subscribePrice(base);
+        document.getElementById('p-price').textContent =
+          '$' + (mode === 'sub' ? sub.toFixed(2) + ' / month' : base.toFixed(2));
         document.getElementById('ap-format').textContent = p.sizes[sizeIdx].label;
+        if (canSubscribe) {
+          document.getElementById('p-price-once').textContent = '$' + base.toFixed(2);
+          document.getElementById('p-price-sub').innerHTML =
+            '<span class="was">$' + base.toFixed(2) + '</span>$' + sub.toFixed(2);
+        }
+      }
+
+      if (canSubscribe) {
+        document.querySelectorAll('#p-mode .mode').forEach(el => {
+          el.addEventListener('click', () => {
+            mode = el.dataset.mode;
+            document.querySelectorAll('#p-mode .mode').forEach(x => x.classList.remove('selected'));
+            el.classList.add('selected');
+            document.querySelector('#pdp .btn.solid').textContent =
+              mode === 'sub' ? 'Subscribe Monthly' : 'Add to Ritual';
+            paintPrice();
+          });
+        });
       }
       p.sizes.forEach((s, i) => {
         const b = document.createElement('button');
@@ -197,14 +245,29 @@
       };
       window.pdpAdd = function () {
         const size = p.sizes[sizeIdx];
-        const existing = cart.find(i => i.id === id && i.sizeIdx === sizeIdx);
+        const isSub = mode === 'sub' && canSubscribe;
+        const price = isSub ? subscribePrice(size.price) : size.price;
+
+        // A monthly line and a one-off line of the same bottle are separate
+        // items — merging them would silently change what someone is buying.
+        const existing = cart.find(i =>
+          i.id === id && i.sizeIdx === sizeIdx && !!i.recurring === isSub);
+
         if (existing) existing.qty += quantity;
-        else cart.push({ id, name: p.name, series: p.series, img: p.img, size: size.label, price: size.price, sizeIdx, qty: quantity });
+        else cart.push({
+          id, name: p.name, series: p.series, img: p.img,
+          size: size.label, price, sizeIdx, qty: quantity,
+          recurring: isSub,
+          metaLine: isSub ? size.label + ' · Every month' : null
+        });
+
         persistCart();
         updateCartBadge();
         renderCart();
         openCart();
-        showToast(p.name + ' added to your ritual');
+        showToast(isSub
+          ? p.name + ' — monthly, cancel anytime'
+          : p.name + ' added to your ritual');
       };
     })();
   </script>

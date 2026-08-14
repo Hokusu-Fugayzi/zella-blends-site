@@ -234,12 +234,20 @@ body.home .announce { flex: 0 0 auto; }
 .door-lede h1 em { color: var(--paper); }
 .door-entries {
   display: grid;
+  align-items: stretch;
   grid-template-columns: repeat(5, 1fr);
   gap: clamp(1.2rem, 3vw, 3rem);
   border-top: 1px solid rgba(247,241,232,0.28);
   padding-top: clamp(1.4rem, 2.5vw, 2.2rem);
 }
-.door-entry { color: var(--paper); display: block; }
+.door-entry {
+  color: var(--paper);
+  display: flex; flex-direction: column;
+  height: 100%;
+}
+/* Push every "more" link to a shared baseline regardless of copy length. */
+.door-entry .d { flex: 1 1 auto; }
+.door-entry .more { align-self: flex-start; }
 .door-entry .t {
   font-family: var(--display); font-weight: 500;
   font-size: clamp(1rem, 1.5vw, 1.35rem);
@@ -1357,4 +1365,61 @@ body.home .announce { flex: 0 0 auto; }
 @media (max-width: 560px) {
   /* On a phone the copy costs a third of the screen — the products say it. */
   .shop-hero .lede { display: none; }
+}
+
+/* ---- Purchase mode: one-time vs monthly -------------------------------- */
+.buy-mode {
+  border: 1px solid var(--line);
+  margin-bottom: 1.9rem;
+}
+.buy-mode .mode {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--line);
+  transition: background .3s ease;
+}
+.buy-mode .mode:last-child { border-bottom: 0; }
+.buy-mode .mode:hover { background: var(--paper-2); }
+.buy-mode .mode.selected { background: var(--paper-2); }
+.buy-mode .dot {
+  width: 13px; height: 13px; border-radius: 50%;
+  border: 1px solid var(--ink-mute);
+  position: relative; flex: 0 0 auto;
+  transition: border-color .3s ease;
+}
+.buy-mode .mode.selected .dot { border-color: var(--ink); }
+.buy-mode .mode.selected .dot::after {
+  content: ''; position: absolute; inset: 2px;
+  border-radius: 50%; background: var(--ink);
+}
+.buy-mode .mode-label {
+  font-family: var(--label); font-size: 0.68rem;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
+  line-height: 1.5;
+}
+.buy-mode .mode-note {
+  display: block;
+  font-size: 0.72rem; letter-spacing: 0.04em;
+  text-transform: none; color: var(--ink-mute);
+  margin-top: 0.2rem;
+}
+.buy-mode .mode-price {
+  font-family: var(--label); font-size: 0.82rem;
+  color: var(--ink); text-align: right; white-space: nowrap;
+}
+.buy-mode .mode-price .was {
+  display: block; font-size: 0.66rem;
+  color: var(--ink-mute); text-decoration: line-through;
+}
+.buy-mode .save {
+  display: inline-block;
+  font-family: var(--label); font-size: 0.54rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--ink); color: var(--paper);
+  padding: 0.16rem 0.45rem; margin-left: 0.5rem;
+  vertical-align: 1px;
 }

@@ -87,7 +87,7 @@ const PRODUCTS = {
     sizes: [{ label: "2oz Spray", price: 18 }]
   },
   experience: {
-    name: "The Zella Experience", series: "Bespoke", img: "images/zella-experience.jpg",
+    name: "The Zella Experience", series: "Create", img: "images/zella-experience.jpg",
     blend: "In Person, By Appointment",
     desc: "Reserve your time with Zella herself. She will guide you through a casual conversation and curate a custom 10 ml blend unique to Y O U in this time and space.",
     sizes: [{ label: "The Experience", price: 100 }, { label: "Extended", price: 150 }]
@@ -100,13 +100,19 @@ const PRODUCTS = {
     sizes: [{ label: "Monthly", price: 49.99 }]
   },
   bespoke: {
-    name: "Bespoke Blend made specifically for you", series: "Bespoke", img: "images/signature-blend.webp",
+    name: "Custom Blend made specifically for you", series: "Create", img: "images/signature-blend.webp",
     blend: "One of One",
     desc: "A one-of-one blend hand-composed for your intention. Stones and oils chosen from the answers you gave.",
     sizes: [{ label: "10ml Roller", price: 89 }]
   }
 };
 const BESPOKE_PRICE = 89;
+/* Subscribe-and-save on individual blends. One number, one place —
+   change this to change every "every month" price on the site. */
+const SUBSCRIBE_DISCOUNT = 0.10;
+function subscribePrice(price) {
+  return Math.round(price * (1 - SUBSCRIBE_DISCOUNT) * 100) / 100;
+}
 const CART_KEY = 'zella_cart_v1';
 
 let cart = [];
@@ -212,8 +218,8 @@ function renderCart() {
           : `<div class="cart-item-img plate" style="margin:0;aspect-ratio:1/1;"><span class="sub">Zella</span></div>`}
         <div class="cart-item-info">
           <div class="cart-item-name">${escapeHtml(item.name)}</div>
-          <div class="cart-item-meta">${item.recurring
-            ? 'Every month · cancel anytime'
+          <div class="cart-item-meta">${item.metaLine
+            ? escapeHtml(item.metaLine)
             : escapeHtml(item.size) + ' · Qty ' + item.qty}</div>
           <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}${item.recurring ? ' / mo' : ''}</div>
           ${recipe}
@@ -224,6 +230,18 @@ function renderCart() {
   }
   const t = document.getElementById('cart-total');
   if (t) t.textContent = '$' + getCartTotal().toFixed(2);
+
+  // A bag holding both one-off bottles and monthly lines needs to say so —
+  // otherwise the subtotal reads as a single charge.
+  const note = document.querySelector('.cart-note');
+  if (note) {
+    const monthly = cart
+      .filter(i => i.recurring)
+      .reduce((sum, i) => sum + i.price * i.qty, 0);
+    note.textContent = monthly > 0
+      ? 'Includes $' + monthly.toFixed(2) + ' billed monthly · cancel anytime'
+      : 'Demo mode · no real charges';
+  }
 }
 function openCart() {
   renderCart();
@@ -293,7 +311,8 @@ function joinCircle() {
   cart.push({
     id: 'circle', name: p.name, series: p.series, img: p.img,
     size: p.sizes[0].label, price: p.sizes[0].price,
-    sizeIdx: 0, qty: 1, recurring: true
+    sizeIdx: 0, qty: 1, recurring: true,
+    metaLine: 'Every month · cancel anytime'
   });
   persistCart();
   updateCartBadge();
