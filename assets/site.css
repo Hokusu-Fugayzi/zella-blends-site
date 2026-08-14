@@ -246,10 +246,10 @@ body.home .announce { flex: 0 0 auto; }
   height: 100%;
   position: relative;
   padding: clamp(0.95rem, 1.7vw, 1.4rem);
-  background: rgba(33, 26, 19, 0.22);
+  /* Nothing is drawn at rest — the panel only exists under the pointer.
+     The transparent border reserves its space so nothing shifts on hover. */
+  background: transparent;
   border: 1px solid transparent;
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
   /* The darkening arrives quickly so the copy is readable the moment the
      pointer lands; the lift is slower and does the flourish. */
   transition:
@@ -269,9 +269,9 @@ body.home .announce { flex: 0 0 auto; }
   z-index: 2;
 }
 /* The shop is the primary door — it carries an outline at rest. */
+/* The shop is the primary door: a hairline outline, no fill. */
 .door-entry.featured {
-  background: rgba(33, 26, 19, 0.42);
-  border-color: rgba(247, 241, 232, 0.5);
+  border-color: rgba(247, 241, 232, 0.42);
 }
 .door-entry.featured:hover { border-color: rgba(247, 241, 232, 0.8); }
 /* Push every "more" link to a shared baseline regardless of copy length. */
