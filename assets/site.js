@@ -92,6 +92,13 @@ const PRODUCTS = {
     desc: "Reserve your time with Zella herself. She will guide you through a casual conversation and curate a custom 10 ml blend unique to Y O U in this time and space.",
     sizes: [{ label: "The Experience", price: 100 }, { label: "Extended", price: 150 }]
   },
+  circle: {
+    name: "The Circle", series: "Subscription", img: "",
+    blend: "Monthly Gathering",
+    desc: "A bundle of blends and sprays at your door each month, chosen for the season by the apothecary. Shipping included. Cancel anytime.",
+    recurring: true,
+    sizes: [{ label: "Monthly", price: 49.99 }]
+  },
   bespoke: {
     name: "Bespoke Blend made specifically for you", series: "Bespoke", img: "images/signature-blend.webp",
     blend: "One of One",
@@ -205,8 +212,10 @@ function renderCart() {
           : `<div class="cart-item-img plate" style="margin:0;aspect-ratio:1/1;"><span class="sub">Zella</span></div>`}
         <div class="cart-item-info">
           <div class="cart-item-name">${escapeHtml(item.name)}</div>
-          <div class="cart-item-meta">${escapeHtml(item.size)} · Qty ${item.qty}</div>
-          <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+          <div class="cart-item-meta">${item.recurring
+            ? 'Every month · cancel anytime'
+            : escapeHtml(item.size) + ' · Qty ' + item.qty}</div>
+          <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}${item.recurring ? ' / mo' : ''}</div>
           ${recipe}
         </div>
         <button class="cart-item-remove" onclick="removeFromCart(${i})">Remove</button>
@@ -272,3 +281,23 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => reveals.forEach(el => el.classList.add('in')), 2500);
   }
 });
+
+/* ---- The Circle (subscription) ----------------------------------------- */
+function joinCircle() {
+  const p = PRODUCTS.circle;
+  if (cart.some(i => i.id === 'circle')) {
+    showToast('The Circle is already in your bag');
+    openCart();
+    return;
+  }
+  cart.push({
+    id: 'circle', name: p.name, series: p.series, img: p.img,
+    size: p.sizes[0].label, price: p.sizes[0].price,
+    sizeIdx: 0, qty: 1, recurring: true
+  });
+  persistCart();
+  updateCartBadge();
+  renderCart();
+  openCart();
+  showToast('The Circle added — $49.99 a month');
+}

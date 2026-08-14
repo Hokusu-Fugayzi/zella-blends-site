@@ -18,6 +18,7 @@
   <header class="site-header">
     <div class="nav-left">
       <a href="products.html" class="nav-link active">Shop</a>
+      <a href="circle.html" class="nav-link">The Circle</a>
       <a href="ritual.html" class="nav-link">Ritual</a>
       <a href="story.html" class="nav-link">Story</a>
     </div>
@@ -34,16 +35,19 @@
   <nav class="mobile-nav">
     <button class="close" aria-label="Close" onclick="toggleMobileNav(false)">&times;</button>
     <a href="products.html">Shop</a>
+    <a href="circle.html">The Circle</a>
     <a href="ritual.html">Ritual</a>
     <a href="bespoke.html">Bespoke</a>
     <a href="story.html">Story</a>
     <a href="#" onclick="event.preventDefault();toggleMobileNav(false);openCart()">Bag</a>
   </nav>
 
-  <section class="page-hero">
-    <span class="eyebrow">The Library</span>
-    <h1 class="display">All Blends</h1>
-    <p>Every blend in the Zella library — elemental, signature, body and home, seasonal, and one composed for you alone. Made for beauty, for wellness, for body, soul, and spirit.</p>
+  <section class="shop-hero">
+    <div>
+      <span class="eyebrow">The Library</span>
+      <h1>All Blends</h1>
+    </div>
+    <p class="lede">Elemental, signature, body and home, seasonal — and one composed for you alone. Made for beauty, for wellness, for body, soul, and spirit.</p>
   </section>
 
   <div class="shop-bar">
@@ -60,7 +64,7 @@
     </div>
   </div>
 
-  <section class="section" style="padding-top:clamp(2rem,4vw,3.5rem);">
+  <section class="section" style="padding-top:clamp(1.1rem,2vw,1.8rem);">
     <div class="wrap">
       <div class="product-grid shop-grid" id="shop-grid">
 
@@ -217,7 +221,15 @@
         <p>That corner of the library is still being filled. Try another series.</p>
       </div>
 
-      <div style="margin-top:5rem;border:1px solid var(--ink);padding:clamp(2.5rem,6vw,5rem);text-align:center;">
+      <a href="circle.html" style="display:block;margin-top:4rem;background:var(--ink);color:var(--paper);padding:clamp(2.2rem,5vw,4rem);text-align:center;">
+        <span class="eyebrow" style="display:block;margin-bottom:1.2rem;color:rgba(247,241,232,0.7);">A Monthly Gathering</span>
+        <h2 style="font-family:var(--display);font-weight:300;font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:1rem;">The Circle</h2>
+        <p style="color:rgba(247,241,232,0.8);max-width:40rem;margin:0 auto 1.6rem;">A bundle of blends and sprays at your door every month, chosen for the season by the apothecary. Shipping included.</p>
+        <p style="font-family:var(--label);font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(247,241,232,0.65);margin-bottom:2rem;">$49.99 / month &middot; Cancel anytime</p>
+        <span class="btn inverse">Join the Circle</span>
+      </a>
+
+      <div style="margin-top:2.5rem;border:1px solid var(--ink);padding:clamp(2.5rem,6vw,5rem);text-align:center;">
         <span class="eyebrow" style="display:block;margin-bottom:1.4rem;">Made for You Alone</span>
         <h2 style="font-family:var(--display);font-weight:300;font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:1.2rem;">The Bespoke Blend</h2>
         <p style="color:var(--ink-soft);max-width:38rem;margin:0 auto 2.2rem;">Answer a handful of gentle questions and Tab will compose a one-of-one blend from Zella's full library of stones and oils.</p>
@@ -235,6 +247,7 @@
       <div class="footer-col">
         <h4>Shop</h4>
         <a href="products.html">All Blends</a>
+        <a href="circle.html">The Circle</a>
         <a href="product.html?id=signature">Signature</a>
         <a href="product.html?id=body-oil">Body Oils</a>
         <a href="bespoke.html">Bespoke</a>

@@ -3,7 +3,8 @@
 // they return 501 so the Bespoke wizard / Square checkout fail loudly
 // rather than serving a confusing HTML 404.
 import { createServer } from "node:http";
-import { readFile, stat } from "node:fs/promises";
+import { stat } from "node:fs/promises";
+import { createReadStream } from "node:fs";
 import { join, normalize, extname, resolve } from "node:path";
 
 const ROOT = resolve(import.meta.dirname);
@@ -74,10 +75,53 @@ const server = createServer(async (req, res) => {
     const finalPath = info.isDirectory()
       ? join(filePath, "index.html")
       : filePath;
-    const body = await readFile(finalPath);
+    const size = info.isDirectory() ? (await stat(finalPath)).size : info.size;
     const type = MIME[extname(finalPath).toLowerCase()] || "application/octet-stream";
-    res.writeHead(200, { "Content-Type": type });
-    res.end(body);
+
+    // Byte-range support. Safari will not play a <video> at all unless the
+    // server answers its probe request with a 206 — without this the hero
+    // video silently never starts.
+    const range = req.headers.range;
+    if (range) {
+      const m = /^bytes=(\d*)-(\d*)$/.exec(range.trim());
+      if (m) {
+        let start = m[1] === "" ? null : Number(m[1]);
+        let end = m[2] === "" ? null : Number(m[2]);
+
+        if (start === null) {
+          // Suffix form: "bytes=-500" means the last 500 bytes.
+          const len = end ?? 0;
+          start = Math.max(0, size - len);
+          end = size - 1;
+        } else if (end === null || end >= size) {
+          end = size - 1;
+        }
+
+        if (start > end || start >= size) {
+          res.writeHead(416, {
+            "Content-Range": `bytes */${size}`,
+            "Accept-Ranges": "bytes",
+          });
+          return res.end();
+        }
+
+        res.writeHead(206, {
+          "Content-Type": type,
+          "Content-Range": `bytes ${start}-${end}/${size}`,
+          "Content-Length": end - start + 1,
+          "Accept-Ranges": "bytes",
+          "Cache-Control": "public, max-age=3600",
+        });
+        return createReadStream(finalPath, { start, end }).pipe(res);
+      }
+    }
+
+    res.writeHead(200, {
+      "Content-Type": type,
+      "Content-Length": size,
+      "Accept-Ranges": "bytes",
+    });
+    createReadStream(finalPath).pipe(res);
   } catch (err) {
     res.writeHead(500, { "Content-Type": "text/plain" });
     res.end("Internal error");

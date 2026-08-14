@@ -234,7 +234,7 @@ body.home .announce { flex: 0 0 auto; }
 .door-lede h1 em { color: var(--paper); }
 .door-entries {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: clamp(1.2rem, 3vw, 3rem);
   border-top: 1px solid rgba(247,241,232,0.28);
   padding-top: clamp(1.4rem, 2.5vw, 2.2rem);
@@ -1172,4 +1172,189 @@ body.home .announce { flex: 0 0 auto; }
     min-height: 60vh;
   }
   .pdp-media img { max-height: 70vh; }
+}
+
+/* ==========================================================================
+   THE CIRCLE — monthly subscription
+   ========================================================================== */
+
+.circle-hero {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(4rem, 9vw, 8rem) var(--pad-x) clamp(3.5rem, 7vw, 6rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Faint concentric rings — a circle, drawn quietly. */
+.circle-hero::before {
+  content: ''; position: absolute; inset: -30% -10%;
+  background:
+    radial-gradient(circle at 50% 45%, transparent 0 22%, rgba(247,241,232,0.05) 22% 22.3%, transparent 22.3%),
+    radial-gradient(circle at 50% 45%, transparent 0 34%, rgba(247,241,232,0.04) 34% 34.25%, transparent 34.25%),
+    radial-gradient(circle at 50% 45%, transparent 0 46%, rgba(247,241,232,0.03) 46% 46.2%, transparent 46.2%);
+  pointer-events: none;
+}
+.circle-hero > * { position: relative; z-index: 1; }
+.circle-hero .eyebrow { color: rgba(247,241,232,0.72); display: block; margin-bottom: 1.5rem; }
+.circle-hero h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.05;
+  margin-bottom: 1.5rem;
+}
+.circle-hero h1 em {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  text-transform: none; letter-spacing: 0;
+}
+.circle-hero .lede {
+  max-width: 42rem; margin: 0 auto 2.6rem;
+  color: rgba(247,241,232,0.82); font-size: 1.02rem;
+}
+
+/* ---- Price lockup ------------------------------------------------------ */
+.price-lockup {
+  display: inline-flex; align-items: baseline; gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+.price-lockup .amount {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(3rem, 8vw, 5.2rem); line-height: 1;
+  letter-spacing: -0.01em;
+}
+.price-lockup .per {
+  font-family: var(--label); font-size: 0.72rem;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(247,241,232,0.7);
+}
+.circle-hero .assure {
+  font-family: var(--label); font-size: 0.62rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(247,241,232,0.6); margin-bottom: 2.4rem;
+}
+.circle-hero .assure b { font-weight: 400; color: rgba(247,241,232,0.85); }
+
+/* ---- What arrives ------------------------------------------------------ */
+.arrives {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+}
+.arrives .cell {
+  background: var(--paper);
+  padding: clamp(2rem, 4vw, 3.2rem);
+  text-align: center;
+}
+.arrives .n {
+  font-family: var(--label); font-size: 0.6rem;
+  letter-spacing: 0.26em; color: var(--ink-mute); display: block;
+  margin-bottom: 1.2rem;
+}
+.arrives h3 {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2rem); color: var(--ink);
+  margin-bottom: 0.9rem;
+}
+.arrives p { color: var(--ink-soft); font-size: 0.92rem; }
+
+/* ---- Reassurance strip ------------------------------------------------- */
+.assure-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  padding: clamp(2.4rem, 5vw, 3.6rem) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.assure-strip .item .t {
+  font-family: var(--label); font-size: 0.63rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 0.5rem;
+}
+.assure-strip .item .d {
+  font-size: 0.84rem; color: var(--ink-soft); line-height: 1.6;
+}
+
+/* ---- FAQ --------------------------------------------------------------- */
+.faq { max-width: 720px; margin: 0 auto; }
+.faq details {
+  border-bottom: 1px solid var(--line);
+  padding: 1.5rem 0;
+}
+.faq summary {
+  cursor: pointer; list-style: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  font-family: var(--display); font-weight: 400;
+  font-size: 1.02rem; color: var(--ink);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: '+';
+  font-family: var(--label); font-size: 1.1rem; color: var(--ink-mute);
+  flex: 0 0 auto; transition: transform .3s ease;
+}
+.faq details[open] summary::after { content: '–'; }
+.faq details p {
+  margin-top: 1rem; color: var(--ink-soft);
+  font-size: 0.94rem; max-width: 60ch;
+}
+
+/* ---- Sticky buy bar (subscription page) -------------------------------- */
+.buy-bar {
+  position: sticky; bottom: 0; z-index: 60;
+  background: var(--ink); color: var(--paper);
+  padding: 1rem var(--pad-x);
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(1rem, 3vw, 2.5rem); flex-wrap: wrap;
+  border-top: 1px solid rgba(247,241,232,0.18);
+}
+.buy-bar .label {
+  font-family: var(--label); font-size: 0.66rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(247,241,232,0.78);
+}
+.buy-bar .btn { padding: 0.85rem 2rem; }
+
+@media (max-width: 900px) {
+  .arrives { grid-template-columns: 1fr; }
+  .assure-strip { grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+}
+@media (max-width: 560px) {
+  .assure-strip { grid-template-columns: 1fr; }
+  .buy-bar { gap: 0.8rem; }
+  .buy-bar .label { display: none; }
+}
+
+/* ---- Shop header: compact ---------------------------------------------- */
+/* The shop is a buying page. The centered .page-hero pushed the first row of
+   products entirely below the fold, so the shop looked empty on arrival.
+   This lays the title and the line of copy out horizontally in a slim band,
+   which puts product on screen immediately. */
+.shop-hero {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 3vw, 2.4rem) var(--pad-x) clamp(1.1rem, 2.2vw, 1.6rem);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+.shop-hero .eyebrow { display: block; margin-bottom: 0.55rem; }
+.shop-hero h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+  line-height: 1;
+}
+.shop-hero .lede {
+  color: var(--ink-soft);
+  font-size: 0.9rem; line-height: 1.65;
+  max-width: 52ch;
+  padding-bottom: 0.3rem;
+}
+@media (max-width: 860px) {
+  .shop-hero { grid-template-columns: 1fr; align-items: start; gap: 0.7rem; }
+  .shop-hero .lede { font-size: 0.86rem; }
+}
+@media (max-width: 560px) {
+  /* On a phone the copy costs a third of the screen — the products say it. */
+  .shop-hero .lede { display: none; }
 }
