@@ -113,10 +113,15 @@ const SUBSCRIBE_DISCOUNT = 0.10;
 function subscribePrice(price) {
   return Math.round(price * (1 - SUBSCRIBE_DISCOUNT) * 100) / 100;
 }
+/* Monthly purchases (The Circle, subscribe-and-save) need Square subscription
+   plans and their own checkout. Until those exist this stays false: the
+   "Every month" option is hidden and nothing recurring can reach the bag. */
+const SUBSCRIPTIONS_ENABLED = false;
 const CART_KEY = 'zella_cart_v1';
 
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { cart = []; }
+if (!SUBSCRIPTIONS_ENABLED) cart = cart.filter(i => !i.recurring && i.id !== 'circle');
 function persistCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {} }
 
 let currentProduct = null, selectedSize = 0, qty = 1;
@@ -185,7 +190,7 @@ function addToCart() {
   closeModal();
   updateCartBadge();
   renderCart();
-  showToast(p.name + ' added to your ritual');
+  openAdded(p.name, size.label + ' · Qty ' + qty);
 }
 function addProductToCart(id) {
   const p = PRODUCTS[id];
@@ -196,7 +201,7 @@ function addProductToCart(id) {
   persistCart();
   updateCartBadge();
   renderCart();
-  showToast(p.name + ' added to your ritual');
+  openAdded(p.name, p.sizes[0].label + ' · Qty 1');
 }
 function removeFromCart(i) { cart.splice(i, 1); persistCart(); updateCartBadge(); renderCart(); }
 function updateCartBadge() {
@@ -240,7 +245,7 @@ function renderCart() {
       .reduce((sum, i) => sum + i.price * i.qty, 0);
     note.textContent = monthly > 0
       ? 'Includes $' + monthly.toFixed(2) + ' billed monthly · cancel anytime'
-      : 'Demo mode · no real charges';
+      : 'Secure checkout by Square';
   }
 }
 function openCart() {
@@ -254,13 +259,78 @@ function closeCart() {
   document.getElementById('cart-drawer').classList.remove('active');
   document.body.style.overflow = '';
 }
-function demoCheckout() {
-  if (cart.length === 0) { showToast('Your cart is empty'); return; }
-  const total = getCartTotal().toFixed(2);
-  cart = []; persistCart();
-  updateCartBadge(); renderCart(); closeCart();
-  showToast('Order placed · $' + total + ' (Demo)');
+async function checkout() {
+  if (cart.length === 0) { showToast('Your bag is empty'); return; }
+  const btns = Array.from(document.querySelectorAll('.checkout-btn'));
+  const labels = btns.map(b => b.textContent);
+  btns.forEach(b => { b.disabled = true; b.textContent = 'Opening secure checkout'; });
+  try {
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: cart.map(i => ({
+          id: i.id, sizeIdx: i.sizeIdx, qty: i.qty,
+          recurring: !!i.recurring, recipe: i.recipe
+        }))
+      })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.url) throw new Error(data.error || 'Checkout failed');
+    window.location.href = data.url;
+  } catch (e) {
+    btns.forEach((b, i) => { b.disabled = false; b.textContent = labels[i]; });
+    showToast('Checkout is unavailable right now');
+  }
 }
+
+/* ---- Added-to-bag prompt ----------------------------------------------- */
+function openAdded(name, meta) {
+  let o = document.getElementById('added-overlay');
+  if (!o) {
+    o = document.createElement('div');
+    o.id = 'added-overlay';
+    o.className = 'added-overlay';
+    o.innerHTML = `<div class="added-box" role="dialog" aria-modal="true" aria-labelledby="added-name">
+      <span class="eyebrow">Added to your ritual</span>
+      <h3 id="added-name"></h3>
+      <p class="added-meta" id="added-meta"></p>
+      <button class="checkout-btn" onclick="checkout()">Checkout Now</button>
+      <button class="added-keep" onclick="closeAdded()">Keep Shopping</button>
+      <button class="added-view" onclick="closeAdded();openCart()">View bag</button>
+    </div>`;
+    o.addEventListener('click', e => { if (e.target === o) closeAdded(); });
+    document.body.appendChild(o);
+    void o.offsetWidth;
+  }
+  document.getElementById('added-name').textContent = name;
+  document.getElementById('added-meta').textContent =
+    meta + ' · Bag subtotal $' + getCartTotal().toFixed(2);
+  o.classList.add('active');
+}
+function closeAdded() {
+  const o = document.getElementById('added-overlay');
+  if (o) o.classList.remove('active');
+}
+
+/* ---- Live prices from Square ------------------------------------------- */
+/* Checkout always charges the Square catalog price. This keeps what the
+   page shows in step with it; if the call fails the built-in prices stand. */
+fetch('/api/catalog').then(r => (r.ok ? r.json() : null)).then(data => {
+  if (!data || !data.prices) return;
+  Object.entries(data.prices).forEach(([id, list]) => {
+    const p = PRODUCTS[id];
+    if (!p) return;
+    list.forEach((price, i) => { if (price != null && p.sizes[i]) p.sizes[i].price = price; });
+  });
+  cart.forEach(item => {
+    const p = PRODUCTS[item.id];
+    if (p && !item.recurring && p.sizes[item.sizeIdx]) item.price = p.sizes[item.sizeIdx].price;
+  });
+  persistCart();
+  renderCart();
+  document.dispatchEvent(new CustomEvent('zella:prices'));
+}).catch(() => {});
 
 /* ---- Toast ------------------------------------------------------------- */
 let toastTimer = null;
@@ -280,10 +350,16 @@ function toggleMobileNav(open) {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeCart(); toggleMobileNav(false); }
+  if (e.key === 'Escape') { closeModal(); closeCart(); closeAdded(); toggleMobileNav(false); }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Returning from Square checkout: the order is placed, so empty the bag.
+  if (new URLSearchParams(window.location.search).get('order') === 'complete') {
+    cart = []; persistCart();
+    history.replaceState(null, '', window.location.pathname);
+    showToast('Thank you — your order is confirmed');
+  }
   updateCartBadge();
   renderCart();
   const reveals = document.querySelectorAll('.reveal');
@@ -302,6 +378,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ---- The Circle (subscription) ----------------------------------------- */
 function joinCircle() {
+  if (!SUBSCRIPTIONS_ENABLED) {
+    showToast('The Circle opens soon — write to us to save your place');
+    window.location.href = 'mailto:info@ZellaBlends.com?subject=' +
+      encodeURIComponent('Save my place in The Circle');
+    return;
+  }
   const p = PRODUCTS.circle;
   if (cart.some(i => i.id === 'circle')) {
     showToast('The Circle is already in your bag');

@@ -3,8 +3,6 @@ node_modules
 .gitignore
 .claude
 scripts
-netlify
-netlify.toml
 .env
 .env.*
 .DS_Store

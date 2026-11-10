@@ -157,8 +157,8 @@
     <div class="cart-items" id="cart-items"></div>
     <div class="cart-footer">
       <div class="cart-total"><span>Subtotal</span><span id="cart-total">$0.00</span></div>
-      <button class="checkout-btn" onclick="demoCheckout()">Proceed to Checkout</button>
-      <p class="cart-note">Demo mode · no real charges</p>
+      <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+      <p class="cart-note">Secure checkout by Square</p>
     </div>
   </aside>
 
@@ -195,7 +195,7 @@
 
       // Recurring purchases only make sense for things that get used up.
       // The Zella Experience is an appointment; bespoke is a one-off.
-      const canSubscribe = !['experience', 'bespoke', 'circle'].includes(id);
+      const canSubscribe = SUBSCRIPTIONS_ENABLED && !['experience', 'bespoke', 'circle'].includes(id);
       let mode = 'once';
       document.getElementById('p-mode-wrap').style.display = canSubscribe ? 'block' : 'none';
 
@@ -238,6 +238,7 @@
       });
       document.getElementById('p-sizes-wrap').style.display = p.sizes.length > 1 ? 'block' : 'none';
       paintPrice();
+      document.addEventListener('zella:prices', paintPrice);
 
       window.pdpQty = function (d) {
         quantity = Math.max(1, quantity + d);
@@ -264,10 +265,12 @@
         persistCart();
         updateCartBadge();
         renderCart();
-        openCart();
-        showToast(isSub
-          ? p.name + ' — monthly, cancel anytime'
-          : p.name + ' added to your ritual');
+        if (isSub) {
+          openCart();
+          showToast(p.name + ' — monthly, cancel anytime');
+        } else {
+          openAdded(p.name, size.label + ' · Qty ' + quantity);
+        }
       };
     })();
   </script>

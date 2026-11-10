@@ -5,15 +5,16 @@ export default async (req, context) => {
     return new Response("Method not allowed", { status: 405 });
   }
 
-  const { SQUARE_WEBHOOK_SIGNATURE_KEY, URL } = process.env;
+  const { SQUARE_WEBHOOK_SIGNATURE_KEY } = process.env;
+  const publicUrl = process.env.PUBLIC_URL || process.env.URL;
 
-  if (!SQUARE_WEBHOOK_SIGNATURE_KEY) {
-    return new Response("Webhook key not configured", { status: 500 });
+  if (!SQUARE_WEBHOOK_SIGNATURE_KEY || !publicUrl) {
+    return new Response("Webhook key or PUBLIC_URL not configured", { status: 500 });
   }
 
   const signature = req.headers.get("x-square-hmacsha256-signature");
   const body = await req.text();
-  const notificationUrl = `${URL}/api/webhooks/square`;
+  const notificationUrl = `${publicUrl}/api/webhooks/square`;
 
   const expected = crypto
     .createHmac("sha256", SQUARE_WEBHOOK_SIGNATURE_KEY)

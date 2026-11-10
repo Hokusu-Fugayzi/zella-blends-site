@@ -769,6 +769,41 @@ body.home .announce { flex: 0 0 auto; }
   color: var(--ink-mute); margin-top: 1rem;
 }
 
+/* ---- Added-to-bag prompt ----------------------------------------------- */
+.added-overlay {
+  position: fixed; inset: 0; z-index: 350; background: rgba(20,15,11,0.5);
+  display: flex; align-items: center; justify-content: center; padding: 1.25rem;
+  opacity: 0; pointer-events: none; transition: opacity .3s ease;
+}
+.added-overlay.active { opacity: 1; pointer-events: auto; }
+.added-box {
+  width: min(430px, 100%); background: var(--paper); border: 1px solid var(--ink);
+  padding: 2.6rem 2rem 1.8rem; text-align: center;
+  transform: translateY(10px); transition: transform .3s ease;
+}
+.added-overlay.active .added-box { transform: none; }
+.added-box h3 {
+  font-family: var(--display); font-weight: 300; font-size: 1.6rem;
+  line-height: 1.25; margin: 1rem 0 0.5rem; text-wrap: balance;
+}
+.added-meta {
+  font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.8rem;
+}
+.added-keep {
+  width: 100%; margin-top: 0.7rem; background: transparent; color: var(--ink);
+  border: 1px solid var(--ink); font-family: var(--label); font-size: 0.7rem;
+  letter-spacing: 0.24em; text-transform: uppercase; padding: 1.1rem;
+  transition: background .3s ease, color .3s ease;
+}
+.added-keep:hover { background: var(--ink); color: var(--paper); }
+.added-view {
+  margin-top: 1.2rem; background: none; border: none; color: var(--ink-soft);
+  font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px;
+}
+.checkout-btn:disabled { opacity: 0.6; cursor: default; }
+
 /* ---- Toast ------------------------------------------------------------- */
 .toast {
   position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);

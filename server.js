@@ -1,13 +1,69 @@
-// Zero-dependency static file server for the lelabo-rebuild visual rebuild.
-// Serves the repo root. Netlify Functions (/api/*) are NOT ported here —
-// they return 501 so the Bespoke wizard / Square checkout fail loudly
-// rather than serving a confusing HTML 404.
+// Static file server for the site, plus the /api/* endpoints (Square
+// checkout + catalog, the Create wizard, Square webhooks).
 import { createServer } from "node:http";
 import { stat } from "node:fs/promises";
 import { createReadStream } from "node:fs";
 import { join, normalize, extname, resolve } from "node:path";
 
+import catalogHandler from "./netlify/functions/catalog.js";
+import checkoutHandler from "./netlify/functions/checkout.js";
+import recommendHandler from "./netlify/functions/recommend.js";
+import webhookHandler from "./netlify/functions/webhooks-square.js";
+
 const ROOT = resolve(import.meta.dirname);
+
+const API = {
+  "/api/catalog": catalogHandler,
+  "/api/checkout": checkoutHandler,
+  "/api/recommend": recommendHandler,
+  "/api/webhooks/square": webhookHandler,
+};
+
+// Paths under ROOT that are never served as static files.
+const PRIVATE = [
+  "/lib", "/netlify", "/scripts", "/node_modules", "/server.js",
+  "/package.json", "/package-lock.json", "/Dockerfile", "/fly.toml",
+  "/netlify.toml",
+];
+
+const MAX_BODY = 64 * 1024;
+
+// Adapts a Node request to the Web Request/Response handlers in
+// netlify/functions, so the same handlers run here unchanged.
+async function handleApi(req, res, url, pathname) {
+  const handler = API[pathname.replace(/\/$/, "")];
+  if (!handler) {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    return res.end(JSON.stringify({ error: "Not found" }));
+  }
+
+  let body;
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    const chunks = [];
+    let size = 0;
+    for await (const chunk of req) {
+      size += chunk.length;
+      if (size > MAX_BODY) {
+        res.writeHead(413, { "Content-Type": "application/json" });
+        return res.end(JSON.stringify({ error: "Request too large" }));
+      }
+      chunks.push(chunk);
+    }
+    body = Buffer.concat(chunks);
+  }
+
+  const headers = new Headers();
+  for (const [key, value] of Object.entries(req.headers)) {
+    if (value !== undefined) headers.set(key, Array.isArray(value) ? value.join(", ") : value);
+  }
+
+  const response = await handler(
+    new Request(url, { method: req.method, headers, body }),
+    {}
+  );
+  res.writeHead(response.status, Object.fromEntries(response.headers));
+  res.end(Buffer.from(await response.arrayBuffer()));
+}
 const PORT = Number(process.env.PORT) || 8080;
 
 const MIME = {
@@ -41,16 +97,17 @@ const server = createServer(async (req, res) => {
       return res.end("ok");
     }
 
-    // Netlify Functions are not ported into this static deploy.
     if (pathname.startsWith("/api/")) {
-      res.writeHead(501, { "Content-Type": "application/json" });
-      return res.end(
-        JSON.stringify({
-          error: "Not available",
-          detail:
-            "This is the lelabo-rebuild static visual deploy. Serverless endpoints (Bespoke wizard, Square checkout) are not hosted here.",
-        })
-      );
+      return await handleApi(req, res, url, pathname);
+    }
+
+    // Never serve server-side source, config or dotfiles.
+    if (
+      pathname.split("/").some((part) => part.startsWith(".")) ||
+      PRIVATE.some((prefix) => pathname === prefix || pathname.startsWith(prefix + "/"))
+    ) {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      return res.end("Not found");
     }
 
     if (pathname === "/" || pathname.endsWith("/")) {
@@ -130,5 +187,5 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(PORT, "0.0.0.0", () => {
-  console.log(`zella-blends-lelabo static server on http://0.0.0.0:${PORT}`);
+  console.log(`zella-blends listening on http://0.0.0.0:${PORT}`);
 });

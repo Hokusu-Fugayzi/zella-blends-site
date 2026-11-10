@@ -1,4 +1,4 @@
-app = "zella-blends-lelabo"
+app = "zella-blends"
 primary_region = "iad"
 
 [build]
@@ -12,7 +12,7 @@ primary_region = "iad"
   processes = ["app"]
 
 [[http_service.checks]]
-  grace_period = "5s"
+  grace_period = "10s"
   interval = "30s"
   method = "GET"
   timeout = "5s"
