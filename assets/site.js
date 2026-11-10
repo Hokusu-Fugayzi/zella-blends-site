@@ -204,6 +204,13 @@ function addProductToCart(id) {
   openAdded(p.name, p.sizes[0].label + ' · Qty 1');
 }
 function removeFromCart(i) { cart.splice(i, 1); persistCart(); updateCartBadge(); renderCart(); }
+function changeCartQty(i, d) {
+  const item = cart[i];
+  if (!item) return;
+  item.qty += d;
+  if (item.qty < 1) cart.splice(i, 1);
+  persistCart(); updateCartBadge(); renderCart();
+}
 function updateCartBadge() {
   const total = cart.reduce((s, i) => s + i.qty, 0);
   document.querySelectorAll('[data-cart-count]').forEach(el => { el.textContent = '(' + total + ')'; });
@@ -225,8 +232,13 @@ function renderCart() {
           <div class="cart-item-name">${escapeHtml(item.name)}</div>
           <div class="cart-item-meta">${item.metaLine
             ? escapeHtml(item.metaLine)
-            : escapeHtml(item.size) + ' · Qty ' + item.qty}</div>
+            : escapeHtml(item.size)}</div>
           <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}${item.recurring ? ' / mo' : ''}</div>
+          ${item.recipe || item.recurring ? '' : `<div class="cart-qty">
+            <button onclick="changeCartQty(${i}, -1)" aria-label="One fewer">&minus;</button>
+            <span>${item.qty}</span>
+            <button onclick="changeCartQty(${i}, 1)" aria-label="One more">+</button>
+          </div>`}
           ${recipe}
         </div>
         <button class="cart-item-remove" onclick="removeFromCart(${i})">Remove</button>

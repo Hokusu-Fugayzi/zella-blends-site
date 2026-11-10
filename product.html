@@ -50,6 +50,7 @@
       <h1 id="p-name"></h1>
       <div class="price" id="p-price"></div>
       <p class="desc" id="p-desc"></p>
+      <button class="desc-more" id="p-desc-more" type="button" hidden>Read more</button>
 
       <div id="p-sizes-wrap">
         <div class="size-label">Size</div>
@@ -148,6 +149,14 @@
     </div>
   </footer>
 
+  <div class="pdp-bar" id="pdp-bar">
+    <div class="pdp-bar-info">
+      <span class="pdp-bar-name" id="pb-name"></span>
+      <span class="pdp-bar-price" id="pb-price"></span>
+    </div>
+    <button class="pdp-bar-btn" id="pb-btn" onclick="pdpAdd()">Add to Ritual</button>
+  </div>
+
   <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
   <aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
     <div class="cart-header">
@@ -205,6 +214,8 @@
         document.getElementById('p-price').textContent =
           '$' + (mode === 'sub' ? sub.toFixed(2) + ' / month' : base.toFixed(2));
         document.getElementById('ap-format').textContent = p.sizes[sizeIdx].label;
+        document.getElementById('pb-price').textContent =
+          p.sizes[sizeIdx].label + ' · $' + (mode === 'sub' ? sub : base).toFixed(2);
         if (canSubscribe) {
           document.getElementById('p-price-once').textContent = '$' + base.toFixed(2);
           document.getElementById('p-price-sub').innerHTML =
@@ -218,8 +229,9 @@
             mode = el.dataset.mode;
             document.querySelectorAll('#p-mode .mode').forEach(x => x.classList.remove('selected'));
             el.classList.add('selected');
-            document.querySelector('#pdp .btn.solid').textContent =
-              mode === 'sub' ? 'Subscribe Monthly' : 'Add to Ritual';
+            const label = mode === 'sub' ? 'Subscribe Monthly' : 'Add to Ritual';
+            document.querySelector('#pdp .btn.solid').textContent = label;
+            document.getElementById('pb-btn').textContent = mode === 'sub' ? 'Subscribe' : label;
             paintPrice();
           });
         });
@@ -239,6 +251,29 @@
       document.getElementById('p-sizes-wrap').style.display = p.sizes.length > 1 ? 'block' : 'none';
       paintPrice();
       document.addEventListener('zella:prices', paintPrice);
+
+      // Long descriptions fold to three lines on small screens (CSS decides
+      // where); the button only appears when there is something to unfold.
+      const descEl = document.getElementById('p-desc');
+      const moreEl = document.getElementById('p-desc-more');
+      if (p.desc.length > 170) {
+        descEl.classList.add('clamped');
+        moreEl.hidden = false;
+        moreEl.addEventListener('click', () => {
+          const open = descEl.classList.toggle('clamped') === false;
+          moreEl.textContent = open ? 'Read less' : 'Read more';
+        });
+      }
+
+      // Pinned buy bar: shows whenever the main button is off screen.
+      document.getElementById('pb-name').textContent = p.name;
+      const bar = document.getElementById('pdp-bar');
+      const mainBtn = document.querySelector('#pdp .btn.solid');
+      if (typeof IntersectionObserver === 'function') {
+        new IntersectionObserver(entries => {
+          bar.classList.toggle('show', !entries[0].isIntersecting);
+        }, { threshold: 0.6 }).observe(mainBtn);
+      }
 
       window.pdpQty = function (d) {
         quantity = Math.max(1, quantity + d);
